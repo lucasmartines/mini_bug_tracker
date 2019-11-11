@@ -2,31 +2,43 @@ import React from 'react';
 import {Link} from 'react-router-dom';
 
 
+/**
+ * unifica o li com o a ou link
+ */
+function ListLink ( props ){
+    return (
+        <li class="nav-item active">
+            <Link class="nav-link" to={props.link}>
+                {props.name}
+            </Link>
+        </li>
+    )
+}
 
 export default function Header(){
     return(
-        <nav class="navbar navbar-expand-md navbar-dark bg-dark">
-            <Link class="navbar-brand" to="">
+        <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+            <Link className="navbar-brand" to="">
                 BugTracker
             </Link>
-            <button class="navbar-toggler" 
+            <button className="navbar-toggler" 
                     type="button"
                     data-toggle="collapse" 
                     data-target="#navbarSupportedContent" 
                     aria-controls="navbarSupportedContent" 
                     aria-expanded="false" 
                     aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
+                <span className="navbar-toggler-icon"></span>
             </button>
 
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item active">
-                        <Link class="nav-link" to="/about">
-                            About
-                        </Link>
-                    </li>
-                    
+            <div className="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul className="navbar-nav mr-auto">
+                    <ListLink name="About" link="/about"/>
+                    <ListLink name="Login" link="/login"/>
+                    <ListLink name="Register" link="/register"/>
+                    <ListLink name="Bug Tracker" link="/bugtracker"/>
+                    <ListLink name="Admin User" link="/user"/>
+
                 </ul>
             </div>
         </nav>
