@@ -72918,7 +72918,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _about_About_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./about/About.js */ "./resources/js/components/about/About.js");
 /* harmony import */ var _home_Home_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./home/Home.js */ "./resources/js/components/home/Home.js");
 /* harmony import */ var _user_login_Login_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./user/login/Login.js */ "./resources/js/components/user/login/Login.js");
-/* harmony import */ var _bugs_Bugs_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./bugs/Bugs.js */ "./resources/js/components/bugs/Bugs.js");
+/* harmony import */ var _bugs_RegisterBug_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./bugs/RegisterBug.js */ "./resources/js/components/bugs/RegisterBug.js");
 /* harmony import */ var _user_register_Register_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./user/register/Register.js */ "./resources/js/components/user/register/Register.js");
 /* harmony import */ var _user_adminUser_AdminUser_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./user/adminUser/AdminUser.js */ "./resources/js/components/user/adminUser/AdminUser.js");
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
@@ -72948,7 +72948,7 @@ function App() {
     path: "/login"
   }, "     ", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_user_login_Login_js__WEBPACK_IMPORTED_MODULE_6__["default"], null), "       "), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_10__["Route"], {
     path: "/bugtracker"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_bugs_Bugs_js__WEBPACK_IMPORTED_MODULE_7__["default"], null), "        "), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_10__["Route"], {
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_bugs_RegisterBug_js__WEBPACK_IMPORTED_MODULE_7__["default"], null), "        "), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_10__["Route"], {
     path: "/register"
   }, "  ", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_user_register_Register_js__WEBPACK_IMPORTED_MODULE_8__["default"], null), "    "), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_10__["Route"], {
     path: "/user"
@@ -72986,10 +72986,10 @@ function About() {
 
 /***/ }),
 
-/***/ "./resources/js/components/bugs/Bugs.js":
-/*!**********************************************!*\
-  !*** ./resources/js/components/bugs/Bugs.js ***!
-  \**********************************************/
+/***/ "./resources/js/components/bugs/RegisterBug.js":
+/*!*****************************************************!*\
+  !*** ./resources/js/components/bugs/RegisterBug.js ***!
+  \*****************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 

@@ -15,7 +15,7 @@ import Footer from './items/Footer.js'
 import About from './about/About.js'
 import Home from './home/Home.js'
 import Login from './user/login/Login.js'
-import Bugs from './bugs/Bugs.js'
+import RegisterBug from './bugs/RegisterBug.js'
 import Register from './user/register/Register.js'
 import AdminUser from './user/adminUser/AdminUser.js'
 
@@ -39,7 +39,7 @@ function App() {
                 <Switch>
                     <Route path="/about">     <About />       </Route>
                     <Route path="/login">     <Login />       </Route>
-                    <Route path="/bugtracker"><Bugs />        </Route>
+                    <Route path="/bugtracker"><RegisterBug />        </Route>
                     <Route path="/register">  <Register />    </Route>
                     <Route path="/user">      <AdminUser />        </Route>
                     <Route path="/">          <Home />        </Route>
