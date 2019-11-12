@@ -87,6 +87,12 @@ export default class Login extends Component{
                         <ListLink name="Bug Tracker" link="/bugtracker"/>
                         <ListLink name="Admin User" link="/user"/>
 
+                        {
+                            logged() && 
+                             <ListLink name="Admin Project" link="/projects"/>
+                        }
+                    
+                        <ListLink name="Admin Bugs" link="/bugspanel" />
                         <LoggedRoutes/>
 
                     </ul>
