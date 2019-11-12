@@ -73017,6 +73017,91 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
 
+/** 
+ * É o input normal do html formatado pensando em react
+ * 
+ * @function InputReact
+ * 
+ * os params disponiveis para customização: 
+ * @param placeholder
+ * @param inputName
+ * @param onChange 
+ * @param className 
+ * */
+
+function InputReact(props) {
+  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "form-group mb-3"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+    htmlFor: "bug1"
+  }, props.inputName), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+    type: "bug",
+    className: "form-control col-12 col-sm-12 ",
+    id: "bug1",
+    "aria-describedby": "bugHelp",
+    placeholder: props.placeholder,
+    onChange: props.onChange
+  })));
+}
+/**
+ * É o input do text area, não está completo ainda
+ */
+
+
+function TextAreaReact(props) {
+  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    "class": "form-group mb-3"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+    htmlFor: props["for"]
+  }, props.inputName), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("textarea", {
+    "class": "form-control col-12 col-sm-12 ",
+    id: props["for"],
+    rows: props.rows || 5,
+    onChange: props.onChange
+  })));
+}
+/**
+ * É o input do select, não está completo ainda, falta receber calback
+ * que descreve qual valor foi escolhido
+ */
+
+
+function SelectInputLevel(props) {
+  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "form-inline mb-3"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+    htmlFor: "level"
+  }, "Bug's Severity"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
+    className: "form-control ml-2 col-12 col-sm-3 col-lg-1",
+    id: "level",
+    onChange: props.onChange,
+    value: props.value
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+    value: "low"
+  }, "Low"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+    value: "moderate"
+  }, "Moderate"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+    value: "critical"
+  }, "Critical"))));
+}
+/**
+ * É um botão simples
+ * @param onCLick 
+ * @param className, é o class name do form-control
+ * @param inputName, é o name que vai aparecer no botão 
+ */
+
+
+function ButtonInput(props) {
+  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "form-group"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: props.className
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+    className: "btn btn-primary  ",
+    onClick: props.onCLick
+  }, " ", props.inputName || "Submit", "  "))));
+}
 
 var Bugs =
 /*#__PURE__*/
@@ -73029,16 +73114,63 @@ function (_Component) {
     _classCallCheck(this, Bugs);
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(Bugs).call(this));
-    _this.state = {};
+    _this.state = {
+      bug: {
+        name: "",
+        description: "",
+        severity: "low"
+      }
+    };
     return _this;
   }
 
   _createClass(Bugs, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {}
+  }, {
+    key: "submitForm",
+    value: function submitForm(e) {
+      alert("Form submit ");
+      console.log(this.state.bug);
+    }
+  }, {
     key: "render",
     value: function render() {
+      var _this2 = this;
+
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        "class": "container mt-3"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, " Bug Component ")));
+        className: "container mt-3"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, " Reportar um Bug "), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "mx-auto d-flex flex-column col-10 pt-3"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(InputReact, {
+        inputName: "Bug Name",
+        placeholder: "Bug name",
+        onChange: function onChange(e) {
+          _this2.setState({
+            name: e.target.value
+          });
+        }
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(SelectInputLevel, {
+        onChange: function onChange(e) {
+          _this2.setState({
+            severity: e.target.value
+          });
+        }
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(TextAreaReact, {
+        inputName: "Bug's Description",
+        htmlFor: "bug input",
+        onChange: function onChange(e) {
+          _this2.setState({
+            description: e.target.value
+          });
+        }
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(ButtonInput, {
+        inputName: "Send Bug",
+        onCLick: function onCLick(e) {
+          _this2.submitForm(e);
+        },
+        className: "justify-content-end d-flex col-12 col-sm-12  pr-0"
+      }))));
     }
   }]);
 

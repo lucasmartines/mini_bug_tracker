@@ -21,7 +21,6 @@ export default function Home() {
                 <CardData title="Usuarios"  data={5} color="bg-primary"/>
                 <CardData title="Bugs"  data={2} color="bg-success"/>
                 <CardData title="Tags"  data={3} color="bg-secondary" />
-
             </div>
         </div>
     </>;
