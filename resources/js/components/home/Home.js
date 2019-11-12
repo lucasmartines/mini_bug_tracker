@@ -15,7 +15,7 @@ function CardData(props){
 export default function Home() {
     return <>
         <div 
-            className="container pt-4">
+            className="container pt-4 container-height">
              <h2>Home</h2>
             <div className="row justify-content-between mx-sm-0 mx-1">   
                 <CardData title="Usuarios"  data={5} color="bg-primary"/>

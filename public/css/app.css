@@ -11104,3 +11104,7 @@ body {
   background: #f1f0f0;
 }
 
+.container-height {
+  min-height: 570px;
+}
+

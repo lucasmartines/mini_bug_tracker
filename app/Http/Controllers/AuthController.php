@@ -3,24 +3,43 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\User;
 
 class AuthController extends Controller
 {
     //
     public function __construct()
     {
-        $this->middleware('auth:api', ['except' => ['login']]);
+        $this->middleware('auth:api', ['except' => ['login','register']]);
     }
 
     public function login()
     {
-        $credentials = request(['email', 'password']);
+        $credentials = request(['name', 'password']);
 
         if (! $token = auth()->attempt($credentials)) {
             return response()->json(['error' => 'Unauthorized'], 401);
         }
 
         return $this->respondWithToken($token);
+    }
+    public function register(){
+        
+        $newUser = request(['name','email','password']);
+
+        try{
+            $user = User::create($newUser);
+        }
+        catch(\Exception $e){
+            return response()->json([
+                'error'=>$e->getMessage ()
+            ]);
+        }
+        
+
+
+        //dd($user);
+        return $this->respondWithToken($user);
     }
         /**
      * Get the authenticated User.

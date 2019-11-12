@@ -12,16 +12,12 @@ function NavItem(props){
         <li className="nav-item">
             <a className={"nav-link "+ props.active}
                 
-                id={props.
-                    id+"-tab" } 
+                id={props.id+"-tab" } 
                 data-toggle="tab" 
-                href={"#"+props.
-                id} 
+                href={"#"+props.id} 
                 role="tab" 
-                aria-controls={props.
-                    id} 
-                aria-sele
-                    cted="true">{props.name}
+                aria-controls={props.id} 
+                aria-selected="true">{props.name}
             </a>
         </li>
     </>
@@ -39,11 +35,9 @@ function TabPane(props)
     return <>
         <div className={"tab-pane fade " + props.show + " "+props.active}
             
-            id={props.
-                id} 
+            id={props.id} 
             role="tabpanel" 
-            aria-labe
-                lledby={props.name+"-tab"}>
+            aria-labelledby={props.name+"-tab"}>
             {props.as}
         </div>
     </>
@@ -57,9 +51,14 @@ export default class AdminUser extends Component{
 
         }
     }
+    componentDidMount(){
+        if(localStorage.getItem("token") == null || localStorage.getItem("token") == ""){
+            window.location = "/login";
+        }
+    }
     render(){
         return <>
-            <div className="container  mt-3 ">
+            <div className="container  mt-3 container-height ">
                 {/* <TabsBar/> */}
                 <div className="card">
                     <div className="card-header">

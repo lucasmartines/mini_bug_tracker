@@ -102,7 +102,7 @@ export default class Bugs extends Component{
     }
     render(){
         return <>
-            <div className="container mt-3">
+            <div className="container mt-3 container-height">
                 <h2> Reportar um Bug </h2>
                 <div className="mx-auto d-flex flex-column col-10 pt-3">
                     <InputReact 
