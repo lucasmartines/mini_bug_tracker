@@ -12,8 +12,8 @@ const ShowItemBug = (name,value) => {
 
 
 class AdminBugs extends Component {
-    constructor(){
-        super()
+    constructor(props){
+        super(props)
     }
     componentDidMount(){
         this.props.fetchBugs();

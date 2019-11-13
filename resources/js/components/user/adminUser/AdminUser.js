@@ -1,5 +1,5 @@
 import React,{Component} from 'react';
-
+import User from '../../../providers/user.js'
 /**
  * TabPane receive 
  * props.active
@@ -34,27 +34,27 @@ function TabPane(props)
 {
     return <>
         <div className={"tab-pane fade " + props.show + " "+props.active}
-            
-            id={props.id} 
-            role="tabpanel" 
-            aria-labelledby={props.name+"-tab"}>
-            {props.as}
+             id={props.id} 
+             role="tabpanel" 
+             aria-labelledby={props.name+"-tab"}>
+             {props.as}
         </div>
     </>
 }
 
 export default class AdminUser extends Component{
 
-    constructor(){
-        super()
+    constructor(props){
+        super(props)
         this.state = {
 
         }
     }
     componentDidMount(){
-        if(localStorage.getItem("token") == null || localStorage.getItem("token") == ""){
-            window.location = "/login";
-        }
+
+        if ( !User.isLoggeIn() ) {
+            this.props.history.push("/") 
+        }      
     }
     render(){
         return <>

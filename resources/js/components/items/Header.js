@@ -1,6 +1,6 @@
 import React,{Component} from 'react';
 import {Link} from 'react-router-dom';
-
+import User from '../../providers/user'
 
 /**
  * unifica o li com o a ou link
@@ -8,12 +8,15 @@ import {Link} from 'react-router-dom';
 function ListLink ( props ){
     return (
         <li className="nav-item active">
-            <Link className="nav-link" to={props.link}>
+            <Link className={props.className +" nav-link"} to={props.link} props={{...props}}>
                 {props.name}
             </Link>
         </li>
     )
 }
+/**
+ * Button logout link
+ */
 function LogoutLink(props){
     return(
         <li className="nav-item active ">
@@ -23,33 +26,33 @@ function LogoutLink(props){
         </li>
     )
 }
-function logged(){
-    if( localStorage.getItem("token") != "" ){
-        return true;
-    }
-    else{
-        return false;
-    }
-}
+
 function doLogout(e){
-    e.preventDefault();
-    localStorage.setItem("token","");
+
+  
+   
 
     Axios.post("/logout")
         .then((response)=>{
-            console.log("logout")  
-            
+           
+            localStorage.setItem("token","");
         })
         .catch((e)=>console.log(e))
 
-    window.location="/"
+   // window.location="/"
 }
-function LoggedRoutes(){
-    if(!logged()){
-        return <>
+/**
+ * rotas de login e cadastro,
+ * verificam se o usuario está logado 
+ */
+function LoginAndRegisterLink()
+{
+
+    if(!User.isLoggeIn()){
+        return <div className="ml-lg-auto d-lg-flex ">
             <ListLink name="Login" link="/login"/>
             <ListLink name="Register" link="/register"/>
-        </>
+        </div>
     }
     else{
         return <>
@@ -57,9 +60,10 @@ function LoggedRoutes(){
         </>
     }
 }
+
 export default class Login extends Component{
-    constructor(){
-        super()
+    constructor(props){
+        super(props)
     }
     componentDidMount(){
         
@@ -81,19 +85,16 @@ export default class Login extends Component{
                 </button>
 
                 <div className="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul className="navbar-nav mr-auto">
+                    <ul className="navbar-nav mr-auto w-100">
                         <ListLink name="About" link="/about"/>
                         
-                        <ListLink name="Bug Tracker" link="/bugtracker"/>
-                        <ListLink name="Admin User" link="/user"/>
-
-                        {
-                            logged() && 
-                             <ListLink name="Admin Project" link="/projects"/>
-                        }
-                    
-                        <ListLink name="Admin Bugs" link="/bugspanel" />
-                        <LoggedRoutes/>
+                        <ListLink name="Report Bug" link="/bugtracker"/>
+                        
+                            {User.isLoggeIn() && <ListLink name="Admin User" link="/user"/>}
+                            {User.isLoggeIn() && <ListLink name="Admin Project" link="/projects"/> }
+                            {User.isLoggeIn() && <ListLink name="Admin Bugs" link="/bugspanel" />}
+                        
+                        <LoginAndRegisterLink/>
 
                     </ul>
                 </div>

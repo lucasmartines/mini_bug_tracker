@@ -51,7 +51,7 @@ function SelectInputLevel(props){
           <div className="form-inline mb-3">
             <label htmlFor="level">Bug's Severity</label>
             <select
-                className="form-control ml-2 col-12 col-sm-3 col-lg-1" 
+                className="form-control ml-2 col-12 col-sm-3 col-lg-2" 
                 id="level"
                 onChange={props.onChange}
                 value={props.value}>

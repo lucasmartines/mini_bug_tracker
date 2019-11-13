@@ -61,15 +61,14 @@ function App(  ) {
             <Router>
                 <Header/>
                     <Switch>
-                        <Route path="/about">     <About />              </Route>
-                        <Route path="/projects">   <Project />             </Route>
-                        <Route path="/login">     <Login />              </Route>
-                        <Route path="/bugtracker"><RegisterBug />        </Route>
-                        <Route path="/register">  <Register />           </Route>
-                        <Route path="/user">      <AdminUser />          </Route>
-                        <Route path="/bugspanel"> <AdminBugs />           </Route>
-                        <Route path="/">          <Home />                </Route>
-
+                        <Route path="/about" component={About}/>    
+                        <Route path="/projects" component={ Project} />     
+                        <Route path="/login" component={Login}/>    
+                        <Route path="/bugtracker" component={RegisterBug} />
+                        <Route path="/register" component={Register}/>
+                        <Route path="/user" component={AdminUser}/> 
+                        <Route path="/bugspanel" component={AdminBugs}/> 
+                        <Route path="/" component={Home}/>      
                     </Switch>
                 <Footer/>
             </Router>
