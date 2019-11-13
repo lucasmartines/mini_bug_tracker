@@ -1,5 +1,5 @@
 import React,{Component} from 'react';
-
+import User from '../../../providers/user';
 export default class Login extends Component{
 
     constructor(){
@@ -12,10 +12,9 @@ export default class Login extends Component{
         
     }
     componentDidMount(){
-        if(localStorage.getItem("token")!== null && localStorage.getItem("token") !== ""){
+        if(User.isLoggeIn()){
             // props.history.push('/')
             window.location="/"
-
         }
     }
     loginUser(e)

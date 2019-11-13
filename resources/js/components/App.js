@@ -37,7 +37,7 @@ window.Axios = axios.create({
  * ====================================
  * use token
  */
-if(localStorage.getItem("token") !== null && localStorage.getItem("token") !== ""){
+if(localStorage.getItem("token").length > 20){
     let bearer = "Bearer "+localStorage.getItem("token")
    
     Axios.defaults.headers = {

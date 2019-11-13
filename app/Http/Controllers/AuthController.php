@@ -23,12 +23,29 @@ class AuthController extends Controller
 
         return $this->respondWithToken($token);
     }
-    public function register(){
+    public function register(Request $req){
         
-        $newUser = request(['name','email','password']);
+        
 
         try{
-            $user = User::create($newUser);
+            $user = User::create([
+                "name" => $req->input("name"),
+                "password" =>bcrypt( $req->input("password")),
+                "email" => $req->input("email")
+            ]);
+
+
+             $token = auth()->attempt([
+                 "name" => $req->input("name"),
+                 "password" => $req->input("password")
+             ]);
+            if($token != false){
+                return $this->respondWithToken($token);
+            }
+            else{
+                return response()->json(['error' => 'Unauthorized'], 401);
+            }
+            
         }
         catch(\Exception $e){
             return response()->json([
@@ -38,8 +55,8 @@ class AuthController extends Controller
         
 
 
-        //dd($user);
-        return $this->respondWithToken($user);
+       
+       
     }
         /**
      * Get the authenticated User.
