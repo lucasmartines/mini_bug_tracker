@@ -75941,7 +75941,9 @@ function LoginAndRegisterLink() {
       link: "/register"
     }));
   } else {
-    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(LogoutLink, {
+    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      className: "ml-lg-auto d-lg-flex "
+    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(LogoutLink, {
       name: "Logout",
       onClick: function onClick(e) {
         return doLogout(e);

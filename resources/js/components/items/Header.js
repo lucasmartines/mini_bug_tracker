@@ -55,9 +55,9 @@ function LoginAndRegisterLink()
         </div>
     }
     else{
-        return <>
+        return <div className="ml-lg-auto d-lg-flex ">
              <LogoutLink name="Logout" onClick={(e) => doLogout(e)}  />
-        </>
+        </div>
     }
 }
 
