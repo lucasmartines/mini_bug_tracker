@@ -38,20 +38,27 @@ window.Axios = axios.create({
  * use token
  */
 
- if(typeof localStorage.getItem("token") === 'undefined' ||
-    localStorage.getItem("token") === null ,
-    localStorage.getItem("token") == ""){
-        console.log("reset token")
-        localStorage.setItem("token","");
- }
+ // if(typeof localStorage.getItem("token") === 'undefined' ||
+ //    localStorage.getItem("token") === null ,
+ //    localStorage.getItem("token") == "" ){
+ //        console.log("reset token")
+ //        localStorage.setItem("token","");
+ // }
+let token = localStorage.getItem("token")
 
-if(localStorage.getItem("token").length > 20){
-    let bearer = "Bearer "+localStorage.getItem("token")
+if( token !== null && token !== "" && typeof token !== "undefined"){
+    
+    if(token.length > 20){
+        let bearer = "Bearer "+localStorage.getItem("token")
 
-    Axios.defaults.headers = {
-        'Content-Type': 'application/json',
-        Authorization: bearer
-    }  
+        Axios.defaults.headers = {
+            'Content-Type': 'application/json',
+            Authorization: bearer
+        }  
+    }
+}
+else{
+    localStorage.setItem("token","")
 }
 
 

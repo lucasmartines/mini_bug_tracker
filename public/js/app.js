@@ -75421,18 +75421,25 @@ window.Axios = axios__WEBPACK_IMPORTED_MODULE_13___default.a.create({
  * ====================================
  * use token
  */
+// if(typeof localStorage.getItem("token") === 'undefined' ||
+//    localStorage.getItem("token") === null ,
+//    localStorage.getItem("token") == "" ){
+//        console.log("reset token")
+//        localStorage.setItem("token","");
+// }
 
-if (typeof localStorage.getItem("token") === 'undefined' || localStorage.getItem("token") === null, localStorage.getItem("token") == "") {
-  console.log("reset token");
+var token = localStorage.getItem("token");
+
+if (token !== null && token !== "" && typeof token !== "undefined") {
+  if (token.length > 20) {
+    var bearer = "Bearer " + localStorage.getItem("token");
+    Axios.defaults.headers = {
+      'Content-Type': 'application/json',
+      Authorization: bearer
+    };
+  }
+} else {
   localStorage.setItem("token", "");
-}
-
-if (localStorage.getItem("token").length > 20) {
-  var bearer = "Bearer " + localStorage.getItem("token");
-  Axios.defaults.headers = {
-    'Content-Type': 'application/json',
-    Authorization: bearer
-  };
 }
 
 
