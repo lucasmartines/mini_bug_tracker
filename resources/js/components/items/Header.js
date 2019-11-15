@@ -29,8 +29,8 @@ function LogoutLink(props){
 
 function doLogout(e){
 
-  
-  localStorage.setItem("token","");
+    User.logout();
+//   localStorage.setItem("token","");
 
     Axios.post("/logout")
         .then((response)=>{
