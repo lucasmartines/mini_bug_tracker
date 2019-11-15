@@ -75923,11 +75923,12 @@ function LogoutLink(props) {
 
 function doLogout(e) {
   _providers_user__WEBPACK_IMPORTED_MODULE_2__["default"].logout();
+  this.props.history.push("/");
   Axios.post("/logout").then(function (response) {
-    console.log("Loggout"); //localStorage.setItem("token","");
+    console.log("Loggout");
   })["catch"](function (e) {
     return console.log(e);
-  }); // window.location="/"
+  });
 }
 /**
  * rotas de login e cadastro,
@@ -76033,6 +76034,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+/* harmony import */ var _providers_user__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../providers/user */ "./resources/js/providers/user.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
@@ -76056,6 +76058,7 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 
 
+
 var Project =
 /*#__PURE__*/
 function (_Component) {
@@ -76070,6 +76073,11 @@ function (_Component) {
     _this.state = {
       nomeProjeto: ""
     };
+
+    if (!_providers_user__WEBPACK_IMPORTED_MODULE_2__["default"].isLoggeIn()) {
+      _this.props.history.push("/");
+    }
+
     return _this;
   }
 
@@ -76320,8 +76328,7 @@ function (_Component) {
     key: "componentDidMount",
     value: function componentDidMount() {
       if (_providers_user__WEBPACK_IMPORTED_MODULE_1__["default"].isLoggeIn()) {
-        // props.history.push('/')
-        window.location = "/";
+        props.history.push('/'); //window.location="/"
       }
     }
   }, {
@@ -76451,8 +76458,7 @@ function (_Component) {
     key: "componentDidMount",
     value: function componentDidMount() {
       if (_providers_user__WEBPACK_IMPORTED_MODULE_2__["default"].isLoggeIn()) {
-        // props.history.push('/')
-        window.location = "/";
+        props.history.push('/'); //window.location="/"
       }
     }
   }, {
@@ -76466,7 +76472,8 @@ function (_Component) {
       };
       Axios.post("/register", newUser).then(function (response) {
         localStorage.setItem("token", response.data.access_token);
-        window.location = "/";
+        window.location = "/"; // props.history.push('/')
+
         console.log(response);
         console.log(localStorage.getItem('token'));
       })["catch"](function (e) {
@@ -76586,9 +76593,7 @@ function () {
   }, {
     key: "logout",
     value: function logout() {
-      if (localStorage.getItem("token").length > 20) {
-        localStorage.setItem("token", "");
-      }
+      localStorage.setItem("token", "");
     }
   }]);
 

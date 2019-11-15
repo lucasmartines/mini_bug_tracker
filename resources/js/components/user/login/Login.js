@@ -13,8 +13,8 @@ export default class Login extends Component{
     }
     componentDidMount(){
         if(User.isLoggeIn()){
-            // props.history.push('/')
-            window.location="/"
+            props.history.push('/')
+            //window.location="/"
         }
     }
     loginUser(e)

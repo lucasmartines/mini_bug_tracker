@@ -17,8 +17,8 @@ export default class Register extends Component{
     }
     componentDidMount(){
         if(User.isLoggeIn()){
-            // props.history.push('/')
-            window.location="/"
+            props.history.push('/')
+            //window.location="/"
         }
        
     }
@@ -35,6 +35,7 @@ export default class Register extends Component{
             .then((response)=>{
                 localStorage.setItem("token",response.data.access_token);
                 window.location="/"
+               // props.history.push('/')
                 console.log(response)
                 console.log(localStorage.getItem('token'))
             })

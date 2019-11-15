@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import {Redirect} from 'react-router-dom'
+import User from '../../providers/user'
 
 
 
@@ -7,12 +8,16 @@ import {Redirect} from 'react-router-dom'
 
 
 class Project extends Component {
+    
     constructor(props){
         super(props)
-
+        
         this.state = {
             nomeProjeto : ""
         }
+        if ( !User.isLoggeIn() ) {
+            this.props.history.push("/") 
+        } 
     }
     cadastrarProjeto(e){
         console.log(this.state.nomeProjeto)

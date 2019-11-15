@@ -30,16 +30,17 @@ function LogoutLink(props){
 function doLogout(e){
 
     User.logout();
-//   localStorage.setItem("token","");
+
+    this.props.history.push("/")
 
     Axios.post("/logout")
         .then((response)=>{
            console.log("Loggout")
-            //localStorage.setItem("token","");
+             
         })
         .catch((e)=>console.log(e))
 
-    window.location="/"
+    
 }
 /**
  * rotas de login e cadastro,
