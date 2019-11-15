@@ -39,7 +39,7 @@ function doLogout(e){
         })
         .catch((e)=>console.log(e))
 
-   // window.location="/"
+    window.location="/"
 }
 /**
  * rotas de login e cadastro,
