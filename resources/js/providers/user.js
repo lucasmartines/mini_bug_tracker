@@ -7,4 +7,9 @@ export default class User{
          }
          return false;
     }
+    static logout(){
+        if(localStorage.getItem("token").length > 20){
+            localStorage.setItem("token","")
+         }
+    }
 }

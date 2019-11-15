@@ -75422,6 +75422,11 @@ window.Axios = axios__WEBPACK_IMPORTED_MODULE_13___default.a.create({
  * use token
  */
 
+if (typeof localStorage.getItem("token") === 'undefined' || localStorage.getItem("token") === null, localStorage.getItem("token") == "") {
+  console.log("reset token");
+  localStorage.setItem("token", "");
+}
+
 if (localStorage.getItem("token").length > 20) {
   var bearer = "Bearer " + localStorage.getItem("token");
   Axios.defaults.headers = {
@@ -75917,8 +75922,9 @@ function LogoutLink(props) {
 }
 
 function doLogout(e) {
+  _providers_user__WEBPACK_IMPORTED_MODULE_2__["default"].logout();
   Axios.post("/logout").then(function (response) {
-    localStorage.setItem("token", "");
+    console.log("Loggout"); //localStorage.setItem("token","");
   })["catch"](function (e) {
     return console.log(e);
   }); // window.location="/"
@@ -76577,6 +76583,13 @@ function () {
 
       return false;
     }
+  }, {
+    key: "logout",
+    value: function logout() {
+      if (localStorage.getItem("token").length > 20) {
+        localStorage.setItem("token", "");
+      }
+    }
   }]);
 
   return User;
@@ -76732,8 +76745,8 @@ var store = Object(redux__WEBPACK_IMPORTED_MODULE_0__["createStore"])(_reducers_
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\php\projetos\bug_tracker\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\php\projetos\bug_tracker\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\LucasDev\react-apps\mini_bug_tracker\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\LucasDev\react-apps\mini_bug_tracker\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
