@@ -38,12 +38,6 @@ window.Axios = axios.create({
  * use token
  */
 
- // if(typeof localStorage.getItem("token") === 'undefined' ||
- //    localStorage.getItem("token") === null ,
- //    localStorage.getItem("token") == "" ){
- //        console.log("reset token")
- //        localStorage.setItem("token","");
- // }
 let token = localStorage.getItem("token")
 
 if( token !== null && token !== "" && typeof token !== "undefined"){

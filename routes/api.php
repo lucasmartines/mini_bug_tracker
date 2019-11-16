@@ -25,19 +25,28 @@ Route::group([
     });
 });
 
+
+
+
 Route::group([
 
     'middleware' => 'api',
     
 ], function ($router) {
 
-    Route::get('teste',function(){
-        echo "teste";
-    });
+ 
+    
+
     Route::post('login', 'AuthController@login');
     Route::post('register', 'AuthController@register');
     Route::post('logout', 'AuthController@logout');
     Route::post('refresh', 'AuthController@refresh');
     Route::post('me', 'AuthController@me');
+
+    /*Bug controller*/
+    Route::get('bug',"BugController@index");
+    Route::post('bug',"BugController@store");
+
+    Route::get('bug/{id}','BugController@bug');
 
 });

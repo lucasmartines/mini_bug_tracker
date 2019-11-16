@@ -86,19 +86,25 @@ export default class Bugs extends Component{
     constructor(){
         super()
         this.state = {
-            bug:{
-                name:"",
-                description:"",
-                severity:"low"
-            }
+            
+            name:"",
+            description:"",
+            severity:"low"
+            
         }
     }
     componentDidMount(){
 
     }
     submitForm(e){
-        alert("Form submit ");
-        console.log(this.state.bug)
+
+
+
+        Axios.post('/bug',this.state)
+            .then( response => {
+                console.log(response.data)
+            })
+            .catch( err => console.log(err))
     }
     render(){
         return <>
@@ -111,18 +117,17 @@ export default class Bugs extends Component{
                         onChange={(e)=>{ this.setState({name:e.target.value}) } }
                     />
                     <SelectInputLevel 
-                        onChange={ (e)=>{this.setState({severity: e.target.value})} }
-                    />
+                        onChange={ (e)=>{this.setState({severity: e.target.value})} } />
                     <TextAreaReact
                         inputName="Bug's Description"
                         htmlFor="bug input"
-                        onChange={(e)=>{ this.setState({description:e.target.value}) } }
-                    />     
+                        onChange={(e)=>{ this.setState({description:e.target.value}) } }/> 
+                        
                     <ButtonInput
                         inputName="Send Bug"
                         onCLick={(e)=>{this.submitForm(e)}}
-                        className="justify-content-end d-flex col-12 col-sm-12  pr-0"
-                    />
+                        className="justify-content-end d-flex col-12 col-sm-12  pr-0"/>
+                    
                 </div>
             </div>
         </>

@@ -16,11 +16,15 @@ class CreateBugsTable extends Migration
         Schema::create('bugs', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string("name");
-            $table->string("description");
-            $table->string("status");
-            $table->string("severiry");
-            $table->string("user_name");
+            $table->text("description");
+            $table->string("severity");
             
+            $table->string("status")->nullable();
+            $table->string("user_name")->nullable();
+            $table->Integer("project_id")->nullable();
+            
+            $table->foreign("project_id")->references("id")->on("bugs")->onDelete('cascade');
+
 
             $table->timestamps();
         });

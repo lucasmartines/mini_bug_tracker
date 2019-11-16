@@ -10,7 +10,11 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::get('/', function () {
+    return view('welcome');
+})->name('home');
 
 Route::get('{path}', function () {
     return view('welcome');
 })->where('path','([A-z\d-]+)?');
+

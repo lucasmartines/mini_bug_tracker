@@ -75421,12 +75421,6 @@ window.Axios = axios__WEBPACK_IMPORTED_MODULE_13___default.a.create({
  * ====================================
  * use token
  */
-// if(typeof localStorage.getItem("token") === 'undefined' ||
-//    localStorage.getItem("token") === null ,
-//    localStorage.getItem("token") == "" ){
-//        console.log("reset token")
-//        localStorage.setItem("token","");
-// }
 
 var token = localStorage.getItem("token");
 
@@ -75566,7 +75560,7 @@ function (_Component) {
       var postItems = this.props.bugs.map(function (bug) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           key: bug.id
-        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, bug.title), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, " ", bug.body, " "));
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Bug: ", bug.name), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h5", null, "description: ", bug.description, " "), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "status: ", bug.status, " "), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "severity: ", bug.severity, " "), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "User name: ", bug.user_name, " "));
       });
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "container container-height pt-4"
@@ -75718,11 +75712,9 @@ function (_Component) {
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(Bugs).call(this));
     _this.state = {
-      bug: {
-        name: "",
-        description: "",
-        severity: "low"
-      }
+      name: "",
+      description: "",
+      severity: "low"
     };
     return _this;
   }
@@ -75733,8 +75725,11 @@ function (_Component) {
   }, {
     key: "submitForm",
     value: function submitForm(e) {
-      alert("Form submit ");
-      console.log(this.state.bug);
+      Axios.post('/bug', this.state).then(function (response) {
+        console.log(response.data);
+      })["catch"](function (err) {
+        return console.log(err);
+      });
     }
   }, {
     key: "render",
@@ -76625,15 +76620,18 @@ __webpack_require__.r(__webpack_exports__);
 
 var fetchBugs = function fetchBugs() {
   return function (dispatch) {
-    console.log("FETCHING");
-    fetch('https://jsonplaceholder.typicode.com/posts').then(function (response) {
-      return response.json();
-    }).then(function (bugs) {
+    //console.log("FETCHING")
+    Axios.get('/bug').then(function (bugs) {
       return dispatch({
         type: _types__WEBPACK_IMPORTED_MODULE_0__["FETCH_BUGS"],
-        payload: bugs
+        payload: bugs.data
       });
-    });
+    }); // fetch('/bug')
+    //     .then(response => response.json())
+    //     .then(bugs => dispatch({
+    //         type:FETCH_BUGS,
+    //         payload:bugs
+    //     }))
   };
 };
 
@@ -76735,6 +76733,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var initialState = {};
 var store = Object(redux__WEBPACK_IMPORTED_MODULE_0__["createStore"])(_reducers_index_js__WEBPACK_IMPORTED_MODULE_2__["default"], initialState, Object(redux__WEBPACK_IMPORTED_MODULE_0__["applyMiddleware"])(redux_thunk__WEBPACK_IMPORTED_MODULE_1__["default"]));
+window.store = store;
 /* harmony default export */ __webpack_exports__["default"] = (store);
 
 /***/ }),
