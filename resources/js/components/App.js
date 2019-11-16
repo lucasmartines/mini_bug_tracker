@@ -31,6 +31,9 @@ import axios from 'axios'
 
 window.Axios = axios.create({
     baseURL:"/api",
+    headers:{
+        'Content-Type': 'application/json'
+    }
 })
 
 /**

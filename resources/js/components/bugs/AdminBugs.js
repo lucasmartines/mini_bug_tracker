@@ -19,7 +19,7 @@ class AdminBugs extends Component {
         this.props.fetchBugs();
     }
     render() {
-        console.log(this.props.bugs)
+        console.log('BUGS '+this.props.bugs)
         const postItems = this.props.bugs.map(bug=>(
       
             <div key={bug.id}>

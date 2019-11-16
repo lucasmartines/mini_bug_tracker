@@ -47,6 +47,6 @@ Route::group([
     Route::get('bug',"BugController@index");
     Route::post('bug',"BugController@store");
 
-    Route::get('bug/{id}','BugController@bug');
+    //Route::get('bug/{id}','BugController@bug');
 
 });

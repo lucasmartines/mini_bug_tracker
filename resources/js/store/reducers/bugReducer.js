@@ -1,8 +1,9 @@
-import {FETCH_BUGS,NEW_BUG} from '../actions/types'
+import {FETCH_BUGS,NEW_BUG,FAIL_FETCH_BUGS} from '../actions/types'
 
 const initialState = {
     items:[],
-    item:{}
+    item:{},
+    error:""
 }
 export default function bugReducer ( state = initialState , action ) {
     switch( action.type){
@@ -10,6 +11,12 @@ export default function bugReducer ( state = initialState , action ) {
             return {
                 ...state,
                 items: action.payload
+            }
+            break;
+        case FAIL_FETCH_BUGS:
+            return {
+                ...state,
+                error: action.payload
             }
             break;
         case NEW_BUG:

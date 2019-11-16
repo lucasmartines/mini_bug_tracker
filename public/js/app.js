@@ -75415,7 +75415,10 @@ __webpack_require__.r(__webpack_exports__);
 
 
 window.Axios = axios__WEBPACK_IMPORTED_MODULE_13___default.a.create({
-  baseURL: "/api"
+  baseURL: "/api",
+  headers: {
+    'Content-Type': 'application/json'
+  }
 });
 /**
  * ====================================
@@ -75556,7 +75559,7 @@ function (_Component) {
   }, {
     key: "render",
     value: function render() {
-      console.log(this.props.bugs);
+      console.log('BUGS ' + this.props.bugs);
       var postItems = this.props.bugs.map(function (bug) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           key: bug.id
@@ -76626,12 +76629,13 @@ var fetchBugs = function fetchBugs() {
         type: _types__WEBPACK_IMPORTED_MODULE_0__["FETCH_BUGS"],
         payload: bugs.data
       });
-    }); // fetch('/bug')
-    //     .then(response => response.json())
-    //     .then(bugs => dispatch({
-    //         type:FETCH_BUGS,
-    //         payload:bugs
-    //     }))
+    })["catch"](function (err) {
+      console.log("erro: Não Autorizado " + err);
+      dispatch({
+        type: _types__WEBPACK_IMPORTED_MODULE_0__["FAIL_FETCH_BUGS"],
+        payload: "Erro Não autorizado"
+      });
+    });
   };
 };
 
@@ -76641,15 +76645,17 @@ var fetchBugs = function fetchBugs() {
 /*!*********************************************!*\
   !*** ./resources/js/store/actions/types.js ***!
   \*********************************************/
-/*! exports provided: FETCH_BUGS, NEW_BUG */
+/*! exports provided: FETCH_BUGS, NEW_BUG, FAIL_FETCH_BUGS */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FETCH_BUGS", function() { return FETCH_BUGS; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NEW_BUG", function() { return NEW_BUG; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FAIL_FETCH_BUGS", function() { return FAIL_FETCH_BUGS; });
 var FETCH_BUGS = "FETCH_POSTS";
 var NEW_BUG = "NEW_BUG";
+var FAIL_FETCH_BUGS = "FAIL_FETCH_BUGS";
 
 /***/ }),
 
@@ -76673,7 +76679,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 var initialState = {
   items: [],
-  item: {}
+  item: {},
+  error: ""
 };
 function bugReducer() {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
@@ -76683,6 +76690,12 @@ function bugReducer() {
     case _actions_types__WEBPACK_IMPORTED_MODULE_0__["FETCH_BUGS"]:
       return _objectSpread({}, state, {
         items: action.payload
+      });
+      break;
+
+    case _actions_types__WEBPACK_IMPORTED_MODULE_0__["FAIL_FETCH_BUGS"]:
+      return _objectSpread({}, state, {
+        error: action.payload
       });
       break;
 

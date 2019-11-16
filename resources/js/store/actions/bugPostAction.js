@@ -1,4 +1,4 @@
-import {FETCH_BUGS,NEW_BUG} from './types'
+import {FETCH_BUGS,NEW_BUG,FAIL_FETCH_BUGS} from './types'
 
 
 export const fetchBugs = () => dispatch =>{
@@ -9,12 +9,15 @@ export const fetchBugs = () => dispatch =>{
             type:FETCH_BUGS,
             payload:bugs.data
         }))
-    
-    // fetch('/bug')
-    //     .then(response => response.json())
-    //     .then(bugs => dispatch({
-    //         type:FETCH_BUGS,
-    //         payload:bugs
-    //     }))
+        .catch( err =>{ 
+        	console.log("erro: Não Autorizado "+ err ) 
+
+        	dispatch({
+	            type:FAIL_FETCH_BUGS,
+	            payload:"Erro Não autorizado"
+	        })
+
+        })
+
     
 }
