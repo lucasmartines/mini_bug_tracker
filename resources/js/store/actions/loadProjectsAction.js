@@ -1,13 +1,13 @@
-import {FETCH_BUGS,NEW_BUG,FAIL_FETCH_BUGS} from './types'
+import {LOAD_PROJECTS} from './types'
 
 
-export const fetchBugs = () => dispatch =>{
+export const loadProjects = () => dispatch =>{
     //console.log("FETCHING")
 
-    Axios.get('/bug')
-    	.then(bugs => dispatch({
-            type:FETCH_BUGS,
-            payload:bugs.data
+    Axios.get('/project')
+    	.then(projects => dispatch({
+            type:LOAD_PROJECTS,
+            payload:projects.data
         }))
         .catch( err =>{ 
         	console.log("erro: Não Autorizado "+ err ) 

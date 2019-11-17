@@ -45,8 +45,16 @@ Route::group([
 
     /*Bug controller*/
     Route::get('bug',"BugController@index");
+    Route::get('bug/{id}','BugController@bug');
     Route::post('bug',"BugController@store");
+    Route::delete('bug/{id}','BugController@delete');
+    
 
-    //Route::get('bug/{id}','BugController@bug');
+    /*Project controller, in project user must have a role of admin not created yet */
+    Route::get('project',"ProjectController@index");
+    Route::get('project/{id}','ProjectController@project');
+    Route::post('project',"ProjectController@store");
+    Route::delete('project/{id}','ProjectController@delete');
+
 
 });

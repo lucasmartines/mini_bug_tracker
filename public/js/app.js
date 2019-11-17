@@ -76040,6 +76040,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
 /* harmony import */ var _providers_user__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../providers/user */ "./resources/js/providers/user.js");
+/* harmony import */ var _store_actions_loadProjectsAction__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../store/actions/loadProjectsAction */ "./resources/js/store/actions/loadProjectsAction.js");
+/* harmony import */ var _store_actions_deleteProjectAction_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../store/actions/deleteProjectAction.js */ "./resources/js/store/actions/deleteProjectAction.js");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
@@ -76059,6 +76062,9 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+
+
 
 
 
@@ -76087,19 +76093,56 @@ function (_Component) {
   }
 
   _createClass(Project, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      this.props.dispatch(Object(_store_actions_loadProjectsAction__WEBPACK_IMPORTED_MODULE_3__["loadProjects"])());
+    }
+  }, {
+    key: "deleteProject",
+    value: function deleteProject(id) {
+      confirm("tem certeza que quer deletar esse projeto");
+      this.props.dispatch(Object(_store_actions_deleteProjectAction_js__WEBPACK_IMPORTED_MODULE_4__["deleteProject"])(id));
+      this.props.dispatch(Object(_store_actions_loadProjectsAction__WEBPACK_IMPORTED_MODULE_3__["loadProjects"])());
+    }
+  }, {
+    key: "showProjects",
+    value: function showProjects() {
+      var _this2 = this;
+
+      return this.props.projects.map(function (project) {
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "card m-1 p-2 d-flex flex-row",
+          key: project.id
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+          className: "mr-auto"
+        }, project.name), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+          className: "btn btn-danger col-sm-2",
+          onClick: function onClick() {
+            return _this2.deleteProject(project.id);
+          }
+        }, "Delete"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+          className: "btn btn-success mx-1 col-sm-2"
+        }, "Update"));
+      });
+    }
+  }, {
     key: "cadastrarProjeto",
     value: function cadastrarProjeto(e) {
       console.log(this.state.nomeProjeto);
+      Axios.post('/project', {
+        name: this.state.nomeProjeto
+      });
+      this.props.dispatch(Object(_store_actions_loadProjectsAction__WEBPACK_IMPORTED_MODULE_3__["loadProjects"])());
     }
   }, {
     key: "render",
     value: function render() {
-      var _this2 = this;
+      var _this3 = this;
 
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: " mt-3 container container-height "
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "card "
+        className: "card mb-2"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "card-header"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, " Project ")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -76110,22 +76153,32 @@ function (_Component) {
         className: "form-control",
         placeholder: "Nome do projeto!",
         onChange: function onChange(e) {
-          _this2.setState(_defineProperty({}, e.target.id, e.target.value));
+          _this3.setState(_defineProperty({}, e.target.id, e.target.value));
         },
         id: "nomeProjeto"
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         className: "btn btn-success mt-2",
         onClick: function onClick(e) {
-          _this2.cadastrarProjeto(e);
+          _this3.cadastrarProjeto(e);
         }
-      }, "Adicionar")))));
+      }, "Adicionar")))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "card"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", {
+        className: "p-2"
+      }, " Projects "), this.showProjects()));
     }
   }]);
 
   return Project;
 }(react__WEBPACK_IMPORTED_MODULE_0__["Component"]);
 
-/* harmony default export */ __webpack_exports__["default"] = (Project);
+var mapStateToProps = function mapStateToProps(state) {
+  return {
+    projects: state.projects
+  };
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_5__["connect"])(mapStateToProps)(Project));
 
 /***/ }),
 
@@ -76631,8 +76684,73 @@ var fetchBugs = function fetchBugs() {
       });
     })["catch"](function (err) {
       console.log("erro: Não Autorizado " + err);
+      alert("Erro, Não Autorizado: " + err);
       dispatch({
         type: _types__WEBPACK_IMPORTED_MODULE_0__["FAIL_FETCH_BUGS"],
+        payload: "Erro Não autorizado"
+      });
+    });
+  };
+};
+
+/***/ }),
+
+/***/ "./resources/js/store/actions/deleteProjectAction.js":
+/*!***********************************************************!*\
+  !*** ./resources/js/store/actions/deleteProjectAction.js ***!
+  \***********************************************************/
+/*! exports provided: deleteProject */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "deleteProject", function() { return deleteProject; });
+/* harmony import */ var _types__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./types */ "./resources/js/store/actions/types.js");
+
+var deleteProject = function deleteProject(id) {
+  return function (dispatch) {
+    Axios["delete"]("project/" + id).then(function (projects) {
+      return dispatch({
+        type: _types__WEBPACK_IMPORTED_MODULE_0__["DELETE_PROJECT"]
+      });
+    })["catch"](function (err) {
+      console.log("erro: Não Autorizado " + err);
+      alert("Erro, Não Autorizado: " + err);
+      dispatch({
+        type: FAIL_FETCH_BUGS,
+        payload: "Erro Não autorizado"
+      });
+    });
+  };
+};
+
+/***/ }),
+
+/***/ "./resources/js/store/actions/loadProjectsAction.js":
+/*!**********************************************************!*\
+  !*** ./resources/js/store/actions/loadProjectsAction.js ***!
+  \**********************************************************/
+/*! exports provided: loadProjects */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "loadProjects", function() { return loadProjects; });
+/* harmony import */ var _types__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./types */ "./resources/js/store/actions/types.js");
+
+var loadProjects = function loadProjects() {
+  return function (dispatch) {
+    //console.log("FETCHING")
+    Axios.get('/project').then(function (projects) {
+      return dispatch({
+        type: _types__WEBPACK_IMPORTED_MODULE_0__["LOAD_PROJECTS"],
+        payload: projects.data
+      });
+    })["catch"](function (err) {
+      console.log("erro: Não Autorizado " + err);
+      alert("Erro, Não Autorizado: " + err);
+      dispatch({
+        type: FAIL_FETCH_BUGS,
         payload: "Erro Não autorizado"
       });
     });
@@ -76645,7 +76763,7 @@ var fetchBugs = function fetchBugs() {
 /*!*********************************************!*\
   !*** ./resources/js/store/actions/types.js ***!
   \*********************************************/
-/*! exports provided: FETCH_BUGS, NEW_BUG, FAIL_FETCH_BUGS */
+/*! exports provided: FETCH_BUGS, NEW_BUG, FAIL_FETCH_BUGS, STORE_PROJECT, LOAD_PROJECTS, DELETE_PROJECT */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -76653,9 +76771,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FETCH_BUGS", function() { return FETCH_BUGS; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NEW_BUG", function() { return NEW_BUG; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FAIL_FETCH_BUGS", function() { return FAIL_FETCH_BUGS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "STORE_PROJECT", function() { return STORE_PROJECT; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LOAD_PROJECTS", function() { return LOAD_PROJECTS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DELETE_PROJECT", function() { return DELETE_PROJECT; });
+/**
+* related to bugs
+*/
 var FETCH_BUGS = "FETCH_POSTS";
 var NEW_BUG = "NEW_BUG";
 var FAIL_FETCH_BUGS = "FAIL_FETCH_BUGS";
+var STORE_PROJECT = "STORE_PROJECT";
+var LOAD_PROJECTS = "LOAD_PROJECTS";
+var DELETE_PROJECT = "DELETE_PROJECT";
 
 /***/ }),
 
@@ -76721,11 +76848,64 @@ function bugReducer() {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! redux */ "./node_modules/redux/es/redux.js");
 /* harmony import */ var _bugReducer__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./bugReducer */ "./resources/js/store/reducers/bugReducer.js");
+/* harmony import */ var _projectReducer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./projectReducer.js */ "./resources/js/store/reducers/projectReducer.js");
+
 
 
 /* harmony default export */ __webpack_exports__["default"] = (Object(redux__WEBPACK_IMPORTED_MODULE_0__["combineReducers"])({
-  bugs: _bugReducer__WEBPACK_IMPORTED_MODULE_1__["default"]
+  bugs: _bugReducer__WEBPACK_IMPORTED_MODULE_1__["default"],
+  projects: _projectReducer_js__WEBPACK_IMPORTED_MODULE_2__["default"]
 }));
+
+/***/ }),
+
+/***/ "./resources/js/store/reducers/projectReducer.js":
+/*!*******************************************************!*\
+  !*** ./resources/js/store/reducers/projectReducer.js ***!
+  \*******************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _actions_types__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../actions/types */ "./resources/js/store/actions/types.js");
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance"); }
+
+function _iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } }
+
+
+var initialState = [];
+
+var projectReducer = function projectReducer() {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
+  var action = arguments.length > 1 ? arguments[1] : undefined;
+
+  switch (action.type) {
+    case _actions_types__WEBPACK_IMPORTED_MODULE_0__["STORE_PROJECT"]:
+      //let old_projects = state;
+      //old_projects.projects.push(action.payload.data);
+      console.log(action.payload);
+      return [].concat(_toConsumableArray(state), [action.payload]);
+      break;
+
+    case _actions_types__WEBPACK_IMPORTED_MODULE_0__["LOAD_PROJECTS"]:
+      return action.payload;
+
+    case _actions_types__WEBPACK_IMPORTED_MODULE_0__["DELETE_PROJECT"]:
+      return state;
+      break;
+
+    default:
+      return state;
+      break;
+  }
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (projectReducer);
 
 /***/ }),
 

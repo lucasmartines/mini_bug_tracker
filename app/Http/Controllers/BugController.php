@@ -20,20 +20,21 @@ class BugController extends Controller
     	return response()->json($bugs);
     }
     public function bug($id){
-    	$bug = Bug::findOrFail($id)->first();
 
-    	dd($bug);
+    	$bug = Bug::findOrFail($id)->first();
+    	return response()->json($bug);
     }
     public function store(Request $bug){
 
     	Bug::create($bug->all());
-
     	return response()->json($bug);
     }
     public function delete($id){
 
-    	Bug::destroy($id);
-    	return response()->json(["message"=>"Bug of id: $id has been destroyed!"]);
+        $project = Bug::findOrFail($id)->first();
+        $project->delete();
+        return response()->json(["message"=>"Bug of id: $id has been destroyed!"]);
+
     }
 
 }
