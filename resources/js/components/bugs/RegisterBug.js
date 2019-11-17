@@ -1,5 +1,7 @@
 import React,{Component} from 'react';
 
+import {connect} from 'react-redux';
+import {loadProjects} from '../../store/actions/loadProjectsAction.js'
 /** 
  * É o input normal do html formatado pensando em react
  * 
@@ -81,7 +83,37 @@ function ButtonInput(props){
     </>
 }
 
-export default class Bugs extends Component{
+/**
+*
+*/
+function ShowProjectOptions({options,onChange}){
+
+    if(typeof options[0] !== 'undefined'  ){
+        // console.log("ITEMS ",options[0])
+        
+        return <>
+        <span> Project </span>
+        <select 
+            onChange={onChange}
+            className="form-control my-2" >
+            <option value={0}> </option>
+            
+            {
+                options[0].map( item =>
+                     <option 
+                             key={item.id}
+                             value={item.id} > 
+                        {item.name}
+                    </option> )
+            }
+        </select>
+        </>
+    }
+    else{
+        return <> <p> Não existe nenhum projeto! </p> </>
+    }
+}
+class Bugs extends Component{
 
     constructor(){
         super()
@@ -89,12 +121,20 @@ export default class Bugs extends Component{
             
             name:"",
             description:"",
-            severity:"low"
+            severity:"low",
+            project:0
             
         }
     }
-    componentDidMount(){
-
+    componentDidMount (){
+        
+        this.props.dispatch(loadProjects())
+        //console.log(this.props.projects)        
+           
+    }
+    componentDidUpdate(){
+        console.log(this.props.projects)
+       // this.forceRender();
     }
     submitForm(e){
 
@@ -102,9 +142,12 @@ export default class Bugs extends Component{
 
         Axios.post('/bug',this.state)
             .then( response => {
-                console.log(response.data)
+                //console.log(response.data)
+                alert("Bug adicionado no sistema corretamente!")
             })
-            .catch( err => console.log(err))
+            .catch( err => {console.log(err)
+                 localStorage.setItem("token","")
+            })
     }
     render(){
         return <>
@@ -122,7 +165,9 @@ export default class Bugs extends Component{
                         inputName="Bug's Description"
                         htmlFor="bug input"
                         onChange={(e)=>{ this.setState({description:e.target.value}) } }/> 
-                        
+                    <ShowProjectOptions 
+                        options={this.props.projects}
+                        onChange={(e)=>  this.setState({project: e.target.value} ) } />
                     <ButtonInput
                         inputName="Send Bug"
                         onCLick={(e)=>{this.submitForm(e)}}
@@ -133,3 +178,7 @@ export default class Bugs extends Component{
         </>
     }
 }
+const mapStateToProps = state => ({
+    projects: state.projects
+})
+export default connect(mapStateToProps)( Bugs )

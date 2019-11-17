@@ -12,6 +12,8 @@ export const fetchBugs = () => dispatch =>{
         .catch( err =>{ 
         	console.log("erro: Não Autorizado "+ err ) 
     		alert("Erro, Não Autorizado: "+err)
+            localStorage.setItem("token","")
+            
         	dispatch({
 	            type:FAIL_FETCH_BUGS,
 	            payload:"Erro Não autorizado"

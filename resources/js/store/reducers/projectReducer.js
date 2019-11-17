@@ -13,7 +13,7 @@ const projectReducer = ( state = initialState , action ) => {
 		break;
 		case projectAction.LOAD_PROJECTS:
 
-			return action.payload
+			return [action.payload];
 		case projectAction.DELETE_PROJECT:
 			return state
 		break;

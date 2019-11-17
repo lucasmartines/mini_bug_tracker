@@ -1,4 +1,4 @@
-import {LOAD_PROJECTS} from './types'
+import {LOAD_PROJECTS,FAIL_FETCH_BUGS} from './types'
 
 
 export const loadProjects = () => dispatch =>{
@@ -10,8 +10,10 @@ export const loadProjects = () => dispatch =>{
             payload:projects.data
         }))
         .catch( err =>{ 
-        	console.log("erro: Não Autorizado "+ err ) 
-    		alert("Erro, Não Autorizado: "+err)
+            //console.log("erro: Não Autorizado "+ err ) 
+    		// alert("Erro, Não Autorizado: "+err)
+            localStorage.setItem("token","")
+
         	dispatch({
 	            type:FAIL_FETCH_BUGS,
 	            payload:"Erro Não autorizado"

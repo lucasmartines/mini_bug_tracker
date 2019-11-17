@@ -75595,9 +75595,10 @@ var mapStateToProps = function mapStateToProps(state) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Bugs; });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _store_actions_loadProjectsAction_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../store/actions/loadProjectsAction.js */ "./resources/js/store/actions/loadProjectsAction.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -75615,6 +75616,8 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+
 
 
 /** 
@@ -75702,6 +75705,32 @@ function ButtonInput(props) {
     onClick: props.onCLick
   }, " ", props.inputName || "Submit", "  "))));
 }
+/**
+*
+*/
+
+
+function ShowProjectOptions(_ref) {
+  var options = _ref.options,
+      onChange = _ref.onChange;
+
+  if (typeof options[0] !== 'undefined') {
+    // console.log("ITEMS ",options[0])
+    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, " Project "), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
+      onChange: onChange,
+      className: "form-control my-2"
+    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+      value: 0
+    }, " "), options[0].map(function (item) {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        key: item.id,
+        value: item.id
+      }, item.name);
+    })));
+  } else {
+    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, " ", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, " N\xE3o existe nenhum projeto! "), " ");
+  }
+}
 
 var Bugs =
 /*#__PURE__*/
@@ -75717,21 +75746,31 @@ function (_Component) {
     _this.state = {
       name: "",
       description: "",
-      severity: "low"
+      severity: "low",
+      project: 0
     };
     return _this;
   }
 
   _createClass(Bugs, [{
     key: "componentDidMount",
-    value: function componentDidMount() {}
+    value: function componentDidMount() {
+      this.props.dispatch(Object(_store_actions_loadProjectsAction_js__WEBPACK_IMPORTED_MODULE_2__["loadProjects"])()); //console.log(this.props.projects)        
+    }
+  }, {
+    key: "componentDidUpdate",
+    value: function componentDidUpdate() {
+      console.log(this.props.projects); // this.forceRender();
+    }
   }, {
     key: "submitForm",
     value: function submitForm(e) {
       Axios.post('/bug', this.state).then(function (response) {
-        console.log(response.data);
+        //console.log(response.data)
+        alert("Bug adicionado no sistema corretamente!");
       })["catch"](function (err) {
-        return console.log(err);
+        console.log(err);
+        localStorage.setItem("token", "");
       });
     }
   }, {
@@ -75765,6 +75804,13 @@ function (_Component) {
             description: e.target.value
           });
         }
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(ShowProjectOptions, {
+        options: this.props.projects,
+        onChange: function onChange(e) {
+          return _this2.setState({
+            project: e.target.value
+          });
+        }
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(ButtonInput, {
         inputName: "Send Bug",
         onCLick: function onCLick(e) {
@@ -75778,7 +75824,13 @@ function (_Component) {
   return Bugs;
 }(react__WEBPACK_IMPORTED_MODULE_0__["Component"]);
 
+var mapStateToProps = function mapStateToProps(state) {
+  return {
+    projects: state.projects
+  };
+};
 
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(mapStateToProps)(Bugs));
 
 /***/ }),
 
@@ -76685,6 +76737,7 @@ var fetchBugs = function fetchBugs() {
     })["catch"](function (err) {
       console.log("erro: Não Autorizado " + err);
       alert("Erro, Não Autorizado: " + err);
+      localStorage.setItem("token", "");
       dispatch({
         type: _types__WEBPACK_IMPORTED_MODULE_0__["FAIL_FETCH_BUGS"],
         payload: "Erro Não autorizado"
@@ -76716,6 +76769,7 @@ var deleteProject = function deleteProject(id) {
     })["catch"](function (err) {
       console.log("erro: Não Autorizado " + err);
       alert("Erro, Não Autorizado: " + err);
+      localStorage.setItem("token", "");
       dispatch({
         type: FAIL_FETCH_BUGS,
         payload: "Erro Não autorizado"
@@ -76747,10 +76801,11 @@ var loadProjects = function loadProjects() {
         payload: projects.data
       });
     })["catch"](function (err) {
-      console.log("erro: Não Autorizado " + err);
-      alert("Erro, Não Autorizado: " + err);
+      //console.log("erro: Não Autorizado "+ err ) 
+      // alert("Erro, Não Autorizado: "+err)
+      localStorage.setItem("token", "");
       dispatch({
-        type: FAIL_FETCH_BUGS,
+        type: _types__WEBPACK_IMPORTED_MODULE_0__["FAIL_FETCH_BUGS"],
         payload: "Erro Não autorizado"
       });
     });
@@ -76893,7 +76948,7 @@ var projectReducer = function projectReducer() {
       break;
 
     case _actions_types__WEBPACK_IMPORTED_MODULE_0__["LOAD_PROJECTS"]:
-      return action.payload;
+      return [action.payload];
 
     case _actions_types__WEBPACK_IMPORTED_MODULE_0__["DELETE_PROJECT"]:
       return state;
