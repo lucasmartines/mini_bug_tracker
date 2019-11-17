@@ -24,6 +24,10 @@ class BugController extends Controller
     	$bug = Bug::findOrFail($id)->first();
     	return response()->json($bug);
     }
+    public function count(){
+        // return response()->json(["bug"=>"5"]);
+        return response()->json(["bugQuantity"=>Bug::count()]);
+    }
     public function store(Request $req){
         
         $bug = new Bug();

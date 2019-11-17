@@ -76883,8 +76883,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 var initialState = {
   items: [],
-  item: {},
-  error: ""
+  // item:{},
+  error: "",
+  bugQuantity: 0
 };
 function bugReducer() {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;

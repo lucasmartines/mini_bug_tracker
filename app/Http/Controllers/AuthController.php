@@ -23,6 +23,10 @@ class AuthController extends Controller
 
         return $this->respondWithToken($token);
     }
+    public function count(){
+        // return response()->json(["bug"=>"5"]);
+        return response()->json(["userQuantity"=>User::count()]);
+    }
     public function register(Request $req){
         
         

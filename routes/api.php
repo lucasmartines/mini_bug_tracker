@@ -38,6 +38,8 @@ Route::group([
     
 
     Route::post('login', 'AuthController@login');
+    Route::get('user/count',"BugController@count");
+
     Route::post('register', 'AuthController@register');
     Route::post('logout', 'AuthController@logout');
     Route::post('refresh', 'AuthController@refresh');
@@ -45,10 +47,11 @@ Route::group([
 
     /*Bug controller*/
     Route::get('bug',"BugController@index");
+    Route::get('bug/count',"BugController@count")    ;      
     Route::get('bug/{id}','BugController@bug');
     Route::post('bug',"BugController@store");
     Route::delete('bug/{id}','BugController@delete');
-    
+
 
     /*Project controller, in project user must have a role of admin not created yet */
     Route::get('project',"ProjectController@index");

@@ -2,8 +2,9 @@ import {FETCH_BUGS,NEW_BUG,FAIL_FETCH_BUGS} from '../actions/types'
 
 const initialState = {
     items:[],
-    item:{},
-    error:""
+    // item:{},
+    error:"",
+    bugQuantity:0
 }
 export default function bugReducer ( state = initialState , action ) {
     switch( action.type){
