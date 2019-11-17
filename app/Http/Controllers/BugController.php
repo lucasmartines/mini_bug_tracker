@@ -24,9 +24,17 @@ class BugController extends Controller
     	$bug = Bug::findOrFail($id)->first();
     	return response()->json($bug);
     }
-    public function store(Request $bug){
+    public function store(Request $req){
+        
+        $bug = new Bug();
+        
+        $bug->name = $req->input("name") ;
+        $bug->description = $req->input("description") ;
+        $bug->severity = $req->input("severity") ;
+        $bug_id = $req->input("project") ;
 
-    	Bug::create($bug->all());
+        $bug->save();
+        
     	return response()->json($bug);
     }
     public function delete($id){

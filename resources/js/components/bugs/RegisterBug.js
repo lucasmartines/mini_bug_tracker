@@ -99,7 +99,7 @@ function ShowProjectOptions({options,onChange}){
             <option value={0}> </option>
             
             {
-                options[0].map( item =>
+                options.map( item =>
                      <option 
                              key={item.id}
                              value={item.id} > 
@@ -132,22 +132,42 @@ class Bugs extends Component{
         //console.log(this.props.projects)        
            
     }
+    allFieldNotEmpty(){
+        let {name,description,severity,project} = this.state;
+
+        console.log(name,description,severity,project)
+        if( name.length > 0
+        &&  description.length > 0 
+        &&  severity.length > 0 
+        &&  project > 0 ){
+            return true;
+        }
+        else{
+            return false;    
+        }
+        
+        
+    }
     componentDidUpdate(){
         console.log(this.props.projects)
        // this.forceRender();
     }
     submitForm(e){
 
+        if(this.allFieldNotEmpty()){
 
-
-        Axios.post('/bug',this.state)
-            .then( response => {
-                //console.log(response.data)
-                alert("Bug adicionado no sistema corretamente!")
-            })
-            .catch( err => {console.log(err)
-                 localStorage.setItem("token","")
-            })
+            Axios.post('/bug',this.state)
+                .then( response => {
+                    //console.log(response.data)
+                    alert("Bug adicionado no sistema corretamente!")
+                })
+                .catch( err => {console.log(err)
+                     localStorage.setItem("token","")
+                })
+        }   
+        else{
+            alert("Por favor prencha todos os campos!")
+        }
     }
     render(){
         return <>

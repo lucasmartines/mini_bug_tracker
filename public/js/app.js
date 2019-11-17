@@ -75721,7 +75721,7 @@ function ShowProjectOptions(_ref) {
       className: "form-control my-2"
     }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
       value: 0
-    }, " "), options[0].map(function (item) {
+    }, " "), options.map(function (item) {
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
         key: item.id,
         value: item.id
@@ -75758,6 +75758,22 @@ function (_Component) {
       this.props.dispatch(Object(_store_actions_loadProjectsAction_js__WEBPACK_IMPORTED_MODULE_2__["loadProjects"])()); //console.log(this.props.projects)        
     }
   }, {
+    key: "allFieldNotEmpty",
+    value: function allFieldNotEmpty() {
+      var _this$state = this.state,
+          name = _this$state.name,
+          description = _this$state.description,
+          severity = _this$state.severity,
+          project = _this$state.project;
+      console.log(name, description, severity, project);
+
+      if (name.length > 0 && description.length > 0 && severity.length > 0 && project > 0) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+  }, {
     key: "componentDidUpdate",
     value: function componentDidUpdate() {
       console.log(this.props.projects); // this.forceRender();
@@ -75765,13 +75781,17 @@ function (_Component) {
   }, {
     key: "submitForm",
     value: function submitForm(e) {
-      Axios.post('/bug', this.state).then(function (response) {
-        //console.log(response.data)
-        alert("Bug adicionado no sistema corretamente!");
-      })["catch"](function (err) {
-        console.log(err);
-        localStorage.setItem("token", "");
-      });
+      if (this.allFieldNotEmpty()) {
+        Axios.post('/bug', this.state).then(function (response) {
+          //console.log(response.data)
+          alert("Bug adicionado no sistema corretamente!");
+        })["catch"](function (err) {
+          console.log(err);
+          localStorage.setItem("token", "");
+        });
+      } else {
+        alert("Por favor prencha todos os campos!");
+      }
     }
   }, {
     key: "render",
@@ -76152,7 +76172,7 @@ function (_Component) {
   }, {
     key: "deleteProject",
     value: function deleteProject(id) {
-      confirm("tem certeza que quer deletar esse projeto");
+      confirm("tem certeza que quer deletar esse projeto?");
       this.props.dispatch(Object(_store_actions_deleteProjectAction_js__WEBPACK_IMPORTED_MODULE_4__["deleteProject"])(id));
       this.props.dispatch(Object(_store_actions_loadProjectsAction__WEBPACK_IMPORTED_MODULE_3__["loadProjects"])());
     }
@@ -76161,21 +76181,23 @@ function (_Component) {
     value: function showProjects() {
       var _this2 = this;
 
-      return this.props.projects.map(function (project) {
-        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-          className: "card m-1 p-2 d-flex flex-row",
-          key: project.id
-        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
-          className: "mr-auto"
-        }, project.name), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-          className: "btn btn-danger col-sm-2",
-          onClick: function onClick() {
-            return _this2.deleteProject(project.id);
-          }
-        }, "Delete"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-          className: "btn btn-success mx-1 col-sm-2"
-        }, "Update"));
-      });
+      if (typeof this.props.projects !== 'undefined') {
+        return this.props.projects.map(function (project) {
+          return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+            className: "card m-1 p-2 d-flex flex-row",
+            key: project.id
+          }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+            className: "mr-auto"
+          }, project.name), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+            className: "btn btn-danger col-sm-2",
+            onClick: function onClick() {
+              return _this2.deleteProject(project.id);
+            }
+          }, "Delete"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+            className: "btn btn-success mx-1 col-sm-2"
+          }, "Update"));
+        });
+      }
     }
   }, {
     key: "cadastrarProjeto",
@@ -76453,7 +76475,7 @@ function (_Component) {
         window.location = "/";
         console.log(localStorage.getItem('token'));
       })["catch"](function (e) {
-        console.log(e);
+        alert("Erro nome ou senha não estão certos!");
         localStorage.setItem("token", "");
       });
     }
@@ -76948,7 +76970,7 @@ var projectReducer = function projectReducer() {
       break;
 
     case _actions_types__WEBPACK_IMPORTED_MODULE_0__["LOAD_PROJECTS"]:
-      return [action.payload];
+      return action.payload;
 
     case _actions_types__WEBPACK_IMPORTED_MODULE_0__["DELETE_PROJECT"]:
       return state;

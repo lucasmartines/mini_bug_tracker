@@ -32,7 +32,7 @@ export default class Login extends Component{
                 console.log(localStorage.getItem('token'))
             })
             .catch((e)=>{
-                console.log(e)
+                alert("Erro nome ou senha não estão certos!")
                 localStorage.setItem("token","");
             })
         

@@ -27,23 +27,25 @@ class Project extends Component {
         this.props.dispatch(loadProjects())
     }
     deleteProject(id){
-        confirm("tem certeza que quer deletar esse projeto")
+        confirm("tem certeza que quer deletar esse projeto?")
         this.props.dispatch(deleteProject(id))
          this.props.dispatch(loadProjects())
     }
     showProjects(){
 
-        return this.props.projects.map( project => (
-            <div className="card m-1 p-2 d-flex flex-row" key={project.id}>
-                <span className="mr-auto">{project.name}</span>
-                <button className="btn btn-danger col-sm-2"
-                        onClick={()=>this.deleteProject(project.id)}>
-                    Delete
-                </button>
-                <button className="btn btn-success mx-1 col-sm-2">
-                    Update
-                </button>
-            </div>) )
+        if( typeof this.props.projects !== 'undefined'){
+            return this.props.projects.map( project => (
+                <div className="card m-1 p-2 d-flex flex-row" key={project.id}>
+                    <span className="mr-auto">{project.name}</span>
+                    <button className="btn btn-danger col-sm-2"
+                            onClick={()=>this.deleteProject(project.id)}>
+                        Delete
+                    </button>
+                    <button className="btn btn-success mx-1 col-sm-2">
+                        Update
+                    </button>
+                </div>) )
+        }
     }
 
     cadastrarProjeto(e){
