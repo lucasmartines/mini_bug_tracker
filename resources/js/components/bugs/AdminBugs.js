@@ -15,13 +15,22 @@ const ShowItemBug = (name,value) => {
 class AdminBugs extends Component {
     constructor(props){
         super(props)
-
+        /*
         if ( !User.isLoggeIn() ) {
             this.props.history.push("/") 
-        }
+        }*/
     }
     componentDidMount(){
         this.props.fetchBugs();
+    }
+    showProject(project){
+       if ( project ){
+            return <p>Project: {project.name || "Sem projeto"}</p>
+       }
+        else{
+            return <> </>
+        }
+                
     }
     render() {
         console.log('BUGS '+this.props.bugs)
@@ -33,6 +42,7 @@ class AdminBugs extends Component {
                 <p>status: {bug.status} </p>
                 <p>severity: {bug.severity} </p>
                 <p>User name: {bug.user_name} </p>
+                {this.showProject(bug.project)}
                 
 
             </div>  

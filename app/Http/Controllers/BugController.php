@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Bug;
-
+use App\Project;
 class BugController extends Controller
 {
     //
@@ -28,6 +28,9 @@ class BugController extends Controller
         // return response()->json(["bug"=>"5"]);
         return response()->json(["bugQuantity"=>Bug::count()]);
     }
+    /**
+    * Store bug and save in a project
+    */
     public function store(Request $req){
         
         $bug = new Bug();
@@ -35,9 +38,14 @@ class BugController extends Controller
         $bug->name = $req->input("name") ;
         $bug->description = $req->input("description") ;
         $bug->severity = $req->input("severity") ;
-        $bug_id = $req->input("project") ;
 
-        $bug->save();
+	    $bug_project_id = $req->input("project") ;
+        $bug->project_id = $bug_project_id;
+
+        $project = Project::find($bug_project_id);
+        $bug->save();        
+
+      //  $project->bug()->save($bug);       
         
     	return response()->json($bug);
     }

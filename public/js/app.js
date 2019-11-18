@@ -87222,17 +87222,13 @@ function (_Component) {
   _inherits(AdminBugs, _Component);
 
   function AdminBugs(props) {
-    var _this;
-
     _classCallCheck(this, AdminBugs);
 
-    _this = _possibleConstructorReturn(this, _getPrototypeOf(AdminBugs).call(this, props));
-
-    if (!_providers_user__WEBPACK_IMPORTED_MODULE_3__["default"].isLoggeIn()) {
-      _this.props.history.push("/");
-    }
-
-    return _this;
+    return _possibleConstructorReturn(this, _getPrototypeOf(AdminBugs).call(this, props));
+    /*
+    if ( !User.isLoggeIn() ) {
+        this.props.history.push("/") 
+    }*/
   }
 
   _createClass(AdminBugs, [{
@@ -87241,13 +87237,24 @@ function (_Component) {
       this.props.fetchBugs();
     }
   }, {
+    key: "showProject",
+    value: function showProject(project) {
+      if (project) {
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Project: ", project.name || "Sem projeto");
+      } else {
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, " ");
+      }
+    }
+  }, {
     key: "render",
     value: function render() {
+      var _this = this;
+
       console.log('BUGS ' + this.props.bugs);
       var postItems = this.props.bugs.map(function (bug) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           key: bug.id
-        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Bug: ", bug.name), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h5", null, "description: ", bug.description, " "), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "status: ", bug.status, " "), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "severity: ", bug.severity, " "), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "User name: ", bug.user_name, " "));
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Bug: ", bug.name), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h5", null, "description: ", bug.description, " "), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "status: ", bug.status, " "), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "severity: ", bug.severity, " "), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "User name: ", bug.user_name, " "), _this.showProject(bug.project));
       });
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "container container-height pt-4"

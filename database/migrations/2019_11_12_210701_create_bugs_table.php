@@ -38,5 +38,7 @@ class CreateBugsTable extends Migration
     public function down()
     {
         Schema::dropIfExists('bugs');
+        //$table->dropForeign(['project_id']);
+
     }
 }
