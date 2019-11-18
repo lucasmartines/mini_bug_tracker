@@ -13,7 +13,7 @@ const EditProject = (props) => {
 
     let [name , setName ] = useState();
 
-    return <Modal show={props.show} onHide={()=>props.onHide}>
+    return <Modal show={props.show} onHide={()=>props.onHide()}>
       <Modal.Header closeButton>
         <Modal.Title>Edit {props.project.nameProjeto}</Modal.Title>
       </Modal.Header>
@@ -107,10 +107,15 @@ class Project extends Component {
     }
 
     cadastrarProjeto(e){
-        console.log(this.state.nameProjeto)
 
-        Axios.post('/project',{name:this.state.nameProjeto});
-        this.props.dispatch(loadProjects())
+        if(this.state.nameProjeto == ""){
+            alert("Por favor precha o nome do projeto");
+        }
+        else{
+            
+            Axios.post('/project',{name:this.state.nameProjeto});
+            this.props.dispatch(loadProjects())
+        }
     }
     render() {
         return (

@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import {connect} from 'react-redux'
 import {fetchBugs} from '../../store/actions/bugPostAction.js'
+import User from '../../providers/user'
 
 const ShowItemBug = (name,value) => {
     return<div>
@@ -14,6 +15,10 @@ const ShowItemBug = (name,value) => {
 class AdminBugs extends Component {
     constructor(props){
         super(props)
+
+        if ( !User.isLoggeIn() ) {
+            this.props.history.push("/") 
+        }
     }
     componentDidMount(){
         this.props.fetchBugs();

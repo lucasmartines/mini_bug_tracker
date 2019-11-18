@@ -11,7 +11,7 @@ class ProjectController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth:api', ['except' => ['index']]);
+        $this->middleware('auth:api', ['except' => ['index','count']]);
     }
     public function index()
     {
@@ -22,6 +22,9 @@ class ProjectController extends Controller
 
     	$project = Project::findOrFail($id)->first();
     	return response()->json($project);
+    }
+    public function count(){
+        return response()->json(['projectQuantity'=>Project::count()]);
     }
     public function update($id,Request $req){
 

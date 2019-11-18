@@ -38,7 +38,7 @@ Route::group([
     
 
     Route::post('login', 'AuthController@login');
-    Route::get('user/count',"BugController@count");
+    Route::get('user/count',"AuthController@count");
 
     Route::post('register', 'AuthController@register');
     Route::post('logout', 'AuthController@logout');
@@ -55,6 +55,7 @@ Route::group([
 
     /*Project controller, in project user must have a role of admin not created yet */
     Route::get('project',"ProjectController@index");
+    Route::get('project/count',"ProjectController@count");
     Route::get('project/{id}','ProjectController@project');
     Route::post('project',"ProjectController@store");
     Route::put('project/{id}',"ProjectController@update");

@@ -10,7 +10,8 @@ class AuthController extends Controller
     //
     public function __construct()
     {
-        $this->middleware('auth:api', ['except' => ['login','register']]);
+        $this->middleware('auth:api',
+            ['except' => ['login','register','count']]);
     }
 
     public function login()
@@ -25,6 +26,8 @@ class AuthController extends Controller
     }
     public function count(){
         // return response()->json(["bug"=>"5"]);
+
+        
         return response()->json(["userQuantity"=>User::count()]);
     }
     public function register(Request $req){
