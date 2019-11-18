@@ -1,21 +1,51 @@
-import React, { Component } from 'react'
+import React, { useState, Component } from 'react'
 import {Redirect} from 'react-router-dom'
 import User from '../../providers/user'
 
 import {loadProjects} from '../../store/actions/loadProjectsAction'
 import {deleteProject} from'../../store/actions/deleteProjectAction.js'
 import {connect} from 'react-redux';
+import {Form,Modal,Button} from 'react-bootstrap';
 
 
 
+const EditProject = (props) => {
 
+    let [name , setName ] = useState("");
+
+    return <Modal show={props.show} onHide={()=>props.onHide}>
+      <Modal.Header closeButton>
+        <Modal.Title>Edit {props.project.nameProjeto}</Modal.Title>
+      </Modal.Header>
+
+      <Modal.Body>
+        <Form.Control 
+                placeholder={props.project.nameProjeto}
+                onChange={(e)=> setName(e.target.value)} />
+      </Modal.Body>
+
+      <Modal.Footer>
+        <Button variant="secondary" onClick={props.onHide}>Close</Button>
+        <Button variant="primary" 
+                onClick={()=>props.onSave(props.project.id,name)}>
+                Save changes
+        </Button>
+      </Modal.Footer>
+    </Modal>
+
+}
 class Project extends Component {
     
     constructor(props){
         super(props)
         
         this.state = {
-            nomeProjeto : ""
+            nameProjeto : "",
+            modal : false,
+            editProject:{
+                nameProjeto:"",
+                id:0
+            }
         }
         if ( !User.isLoggeIn() ) {
             this.props.history.push("/") 
@@ -29,9 +59,30 @@ class Project extends Component {
     deleteProject(id){
         confirm("tem certeza que quer deletar esse projeto?")
         this.props.dispatch(deleteProject(id))
-         this.props.dispatch(loadProjects())
+        this.props.dispatch(loadProjects())
     }
-    showProjects(){
+    updateProject(id,name){
+
+        this.setState({editProject:{
+            nameProjeto:name,
+            id:id
+        }})
+        
+      
+        
+        Axios.put('/project/'+id,{name})
+            .then(data => {
+                if(typeof data !== "undefined"){
+                    alert("Projetos atualizados")
+                }
+            })
+            
+        this.props.dispatch(loadProjects())           
+        this.setState({modal:false})
+        
+        
+    }
+    showProjects(props){
 
         if( typeof this.props.projects !== 'undefined'){
             return this.props.projects.map( project => (
@@ -41,7 +92,14 @@ class Project extends Component {
                             onClick={()=>this.deleteProject(project.id)}>
                         Delete
                     </button>
-                    <button className="btn btn-success mx-1 col-sm-2">
+                    <button className="btn btn-success mx-1 col-sm-2"
+                            onClick={()=>this.setState({
+                                modal:true,
+                                editProject:{
+                                    nameProjeto:project.name,
+                                    id:project.id
+                                }
+                            })}>
                         Update
                     </button>
                 </div>) )
@@ -49,9 +107,9 @@ class Project extends Component {
     }
 
     cadastrarProjeto(e){
-        console.log(this.state.nomeProjeto)
+        console.log(this.state.nameProjeto)
 
-        Axios.post('/project',{name:this.state.nomeProjeto});
+        Axios.post('/project',{name:this.state.nameProjeto});
         this.props.dispatch(loadProjects())
     }
     render() {
@@ -67,7 +125,7 @@ class Project extends Component {
                             <input  className="form-control" 
                                     placeholder="Nome do projeto!"
                                     onChange={(e)=>{ this.setState({[e.target.id]:e.target.value })   }}
-                                    id="nomeProjeto"/>
+                                    id="nameProjeto"/>
                             <button  className="btn btn-success mt-2"
                                      onClick={(e)=>{ this.cadastrarProjeto(e) }}>
                                 Adicionar 
@@ -79,6 +137,13 @@ class Project extends Component {
                     <h2 className="p-2"> Projects </h2>
                     {this.showProjects()}
                 </div>
+                <EditProject show={this.state.modal}  
+                             onHide={()=>this.setState({modal:false})}
+                             onSave={(id,name)=>this.updateProject(id,name)}
+                             project={this.state.editProject }
+
+                             
+                 />
             </div>
 
         )

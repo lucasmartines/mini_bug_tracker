@@ -23,6 +23,13 @@ class ProjectController extends Controller
     	$project = Project::findOrFail($id)->first();
     	return response()->json($project);
     }
+    public function update($id,Request $req){
+
+
+        Project::where("id",$id)->update(['name' => $req->input('name')]);
+            
+        return response()->json("item $id and ".$req->input("name")." has been saved");
+    }
     public function store(Request $req){
 
     	$project = new Project();

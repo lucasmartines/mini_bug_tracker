@@ -57,6 +57,7 @@ Route::group([
     Route::get('project',"ProjectController@index");
     Route::get('project/{id}','ProjectController@project');
     Route::post('project',"ProjectController@store");
+    Route::put('project/{id}',"ProjectController@update");
     Route::delete('project/{id}','ProjectController@delete');
 
 
