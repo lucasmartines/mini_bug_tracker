@@ -11,7 +11,7 @@ import {Form,Modal,Button} from 'react-bootstrap';
 
 const EditProject = (props) => {
 
-    let [name , setName ] = useState("");
+    let [name , setName ] = useState();
 
     return <Modal show={props.show} onHide={()=>props.onHide}>
       <Modal.Header closeButton>
@@ -76,7 +76,7 @@ class Project extends Component {
                     alert("Projetos atualizados")
                 }
             })
-            
+
         this.props.dispatch(loadProjects())           
         this.setState({modal:false})
         
