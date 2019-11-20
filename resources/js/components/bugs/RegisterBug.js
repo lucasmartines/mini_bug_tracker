@@ -172,27 +172,34 @@ class Bugs extends Component{
     render(){
         return <>
             <div className="container mt-3 container-height">
-                <h2> Reportar um Bug </h2>
-                <div className="mx-auto d-flex flex-column col-10 pt-3">
-                    <InputReact 
-                        inputName="Bug Name"
-                        placeholder="Bug name"
-                        onChange={(e)=>{ this.setState({name:e.target.value}) } }
-                    />
-                    <SelectInputLevel 
-                        onChange={ (e)=>{this.setState({severity: e.target.value})} } />
-                    <TextAreaReact
-                        inputName="Bug's Description"
-                        htmlFor="bug input"
-                        onChange={(e)=>{ this.setState({description:e.target.value}) } }/> 
-                    <ShowProjectOptions 
-                        options={this.props.projects}
-                        onChange={(e)=>  this.setState({project: e.target.value} ) } />
-                    <ButtonInput
-                        inputName="Send Bug"
-                        onCLick={(e)=>{this.submitForm(e)}}
-                        className="justify-content-end d-flex col-12 col-sm-12  pr-0"/>
-                    
+                <div className="card m-1 d-flex flex-column">
+                    <div className="card-header">
+                        <h2> <i class="material-icons">
+                                  bug_report
+                            </i>
+                            Reportar um Bug </h2>
+                    </div>
+                    <div className="card-body mx-auto d-flex flex-column col-10 pt-3">
+                        <InputReact 
+                            inputName="Bug Name"
+                            placeholder="Bug name"
+                            onChange={(e)=>{ this.setState({name:e.target.value}) } }
+                        />
+                        <SelectInputLevel 
+                            onChange={ (e)=>{this.setState({severity: e.target.value})} } />
+                        <TextAreaReact
+                            inputName="Bug's Description"
+                            htmlFor="bug input"
+                            onChange={(e)=>{ this.setState({description:e.target.value}) } }/> 
+                        <ShowProjectOptions 
+                            options={this.props.projects}
+                            onChange={(e)=>  this.setState({project: e.target.value} ) } />
+                        <ButtonInput
+                            inputName="Send Bug"
+                            onCLick={(e)=>{this.submitForm(e)}}
+                            className="justify-content-end d-flex col-12 col-sm-12  pr-0"/>
+                        
+                    </div>
                 </div>
             </div>
         </>

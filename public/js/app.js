@@ -87254,11 +87254,19 @@ function (_Component) {
       var postItems = this.props.bugs.map(function (bug) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           key: bug.id
-        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Bug: ", bug.name), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h5", null, "description: ", bug.description, " "), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "status: ", bug.status, " "), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "severity: ", bug.severity, " "), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "User name: ", bug.user_name, " "), _this.showProject(bug.project));
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h5", null, "Name: ", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("b", null, bug.name)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h5", null, " ", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("b", null, "description:"), " ", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), bug.description, " "), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "status: ", bug.status, " "), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "severity: ", bug.severity, " "), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "User name: ", bug.user_name, " "), _this.showProject(bug.project), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("hr", null));
       });
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "container container-height pt-4"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, " AdminBugs "), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, postItems));
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "card"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "card-header"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+        "class": "material-icons"
+      }, "bug_report"), "Admin Bugs Panel")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "card-body"
+      }, postItems)));
     }
   }]);
 
@@ -87491,8 +87499,14 @@ function (_Component) {
 
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "container mt-3 container-height"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, " Reportar um Bug "), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "mx-auto d-flex flex-column col-10 pt-3"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "card m-1 d-flex flex-column"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "card-header"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, " ", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+        "class": "material-icons"
+      }, "bug_report"), "Reportar um Bug ")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "card-body mx-auto d-flex flex-column col-10 pt-3"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(InputReact, {
         inputName: "Bug Name",
         placeholder: "Bug name",
@@ -87528,7 +87542,7 @@ function (_Component) {
           _this2.submitForm(e);
         },
         className: "justify-content-end d-flex col-12 col-sm-12  pr-0"
-      }))));
+      })))));
     }
   }]);
 
@@ -87622,7 +87636,7 @@ function Home() {
     data: bugQuantity,
     color: "bg-success"
   }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(CardData, {
-    title: "Tags",
+    title: "Projects",
     data: projectQuantity,
     color: "bg-secondary"
   }))));
@@ -87982,12 +87996,12 @@ function (_Component) {
           }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
             className: "mr-auto"
           }, project.name), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-            className: "btn btn-danger col-sm-2",
+            className: "btn btn-danger m-1",
             onClick: function onClick() {
               return _this2.deleteProject(project.id);
             }
           }, "Delete"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-            className: "btn btn-success mx-1 col-sm-2",
+            className: "btn btn-success m-1",
             onClick: function onClick() {
               return _this2.setState({
                 modal: true,
@@ -88024,7 +88038,7 @@ function (_Component) {
         className: "card mb-2"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "card-header"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, " Project ")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "Project Panel ")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "card-body"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "form-group"
@@ -88185,9 +88199,6 @@ function (_Component) {
         id: "role",
         active: "active"
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(NavItem, {
-        name: "Create user",
-        id: "user"
-      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(NavItem, {
         name: "All users",
         id: "users"
       }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -88201,10 +88212,6 @@ function (_Component) {
         active: "active",
         show: "show",
         as: react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, " Create Role ")
-      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(TabPane, {
-        name: "Create user",
-        id: "user",
-        as: react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, " Create User ")
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(TabPane, {
         name: "All users",
         id: "users",
@@ -88843,8 +88850,8 @@ window.store = store;
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\LucasDev\react-apps\mini_bug_tracker\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\LucasDev\react-apps\mini_bug_tracker\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\php\projetos\mini_bug_tracker\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\php\projetos\mini_bug_tracker\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

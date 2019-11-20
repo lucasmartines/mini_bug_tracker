@@ -33,7 +33,7 @@ export default function Home() {
             <div className="row justify-content-between mx-sm-0 mx-1">   
                 <CardData title="Usuarios"  data={userQuantity} color="bg-primary"/>
                 <CardData title="Bugs"  data={bugQuantity} color="bg-success"/>
-                <CardData title="Tags"  data={projectQuantity} color="bg-secondary" />
+                <CardData title="Projects"  data={projectQuantity} color="bg-secondary" />
             </div>
         </div>
     </>;

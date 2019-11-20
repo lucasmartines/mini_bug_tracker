@@ -38,7 +38,7 @@ class BugController extends Controller
         $bug->name = $req->input("name") ;
         $bug->description = $req->input("description") ;
         $bug->severity = $req->input("severity") ;
-
+        $bug->status = "new bug";
 	    $bug_project_id = $req->input("project") ;
         $bug->project_id = $bug_project_id;
 

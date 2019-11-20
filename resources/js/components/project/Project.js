@@ -88,11 +88,11 @@ class Project extends Component {
             return this.props.projects.map( project => (
                 <div className="card m-1 p-2 d-flex flex-row" key={project.id}>
                     <span className="mr-auto">{project.name}</span>
-                    <button className="btn btn-danger col-sm-2"
+                    <button className="btn btn-danger m-1"
                             onClick={()=>this.deleteProject(project.id)}>
                         Delete
                     </button>
-                    <button className="btn btn-success mx-1 col-sm-2"
+                    <button className="btn btn-success m-1"
                             onClick={()=>this.setState({
                                 modal:true,
                                 editProject:{
@@ -122,7 +122,8 @@ class Project extends Component {
             <div className=" mt-3 container container-height ">
                 <div className="card mb-2">
                     <div className="card-header">
-                        <h2> Project </h2>
+                        <h2> 
+                        Project Panel </h2>
                     </div>
                     <div className="card-body">
                         <div className="form-group">

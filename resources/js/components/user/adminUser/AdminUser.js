@@ -69,9 +69,6 @@ export default class AdminUser extends Component{
                                 id="role" 
                                 active="active" />                
                             <NavItem 
-                                name="Create user" 
-                                id="user" />
-                            <NavItem 
                                 name="All users" 
                                 id="users" />
                         </ul>
@@ -85,10 +82,6 @@ export default class AdminUser extends Component{
                                 active="active"
                                 show="show"
                                 as={<h2> Create Role </h2>} />
-                            <TabPane 
-                                name="Create user" 
-                                id="user" 
-                                as={<h2> Create User </h2>} />
                             <TabPane 
                                 name="All users" 
                                 id="users" 
