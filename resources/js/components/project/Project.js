@@ -15,12 +15,12 @@ const EditProject = (props) => {
 
     return <Modal show={props.show} onHide={()=>props.onHide()}>
       <Modal.Header closeButton>
-        <Modal.Title>Edit {props.project.nameProjeto}</Modal.Title>
+        <Modal.Title>Edit {props.project.nameProjet}</Modal.Title>
       </Modal.Header>
 
       <Modal.Body>
         <Form.Control 
-                placeholder={props.project.nameProjeto}
+                placeholder={props.project.nameProjet}
                 onChange={(e)=> setName(e.target.value)} />
       </Modal.Body>
 
@@ -40,10 +40,10 @@ class Project extends Component {
         super(props)
         
         this.state = {
-            nameProjeto : "",
+            nameProjet : "",
             modal : false,
             editProject:{
-                nameProjeto:"",
+                nameProjet:"",
                 id:0
             }
         }
@@ -64,7 +64,7 @@ class Project extends Component {
     updateProject(id,name){
 
         this.setState({editProject:{
-            nameProjeto:name,
+            nameProjet:name,
             id:id
         }})
         
@@ -96,7 +96,7 @@ class Project extends Component {
                             onClick={()=>this.setState({
                                 modal:true,
                                 editProject:{
-                                    nameProjeto:project.name,
+                                    nameProjet:project.name,
                                     id:project.id
                                 }
                             })}>
@@ -108,12 +108,12 @@ class Project extends Component {
 
     cadastrarProjeto(e){
 
-        if(this.state.nameProjeto == ""){
+        if(this.state.nameProjet == ""){
             alert("Por favor precha o nome do projeto");
         }
         else{
             
-            Axios.post('/project',{name:this.state.nameProjeto});
+            Axios.post('/project',{name:this.state.nameProjet});
             this.props.dispatch(loadProjects())
         }
     }
@@ -131,7 +131,7 @@ class Project extends Component {
                             <input  className="form-control" 
                                     placeholder="Nome do projeto!"
                                     onChange={(e)=>{ this.setState({[e.target.id]:e.target.value })   }}
-                                    id="nameProjeto"/>
+                                    id="nameProjet"/>
                             <button  className="btn btn-success mt-2"
                                      onClick={(e)=>{ this.cadastrarProjeto(e) }}>
                                 Adicionar 

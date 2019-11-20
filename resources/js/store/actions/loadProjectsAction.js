@@ -9,7 +9,7 @@ export const loadProjects = () => dispatch =>{
     	.then(projects => dispatch({
             type:LOAD_PROJECTS,
             payload:projects.data
-        }))
+        }) )
         .catch( err =>{ 
             User.logoutWhenStatusCodeNotAuthorized(err.response.status);
 

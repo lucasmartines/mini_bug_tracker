@@ -53,13 +53,33 @@ function SelectInputLevel(props){
           <div className="form-inline mb-3">
             <label htmlFor="level">Bug's Severity</label>
             <select
-                className="form-control ml-2 col-12 col-sm-3 col-lg-2" 
+                className="form-control ml-2 col-12 col-sm-3 col-lg-2 " 
                 id="level"
                 onChange={props.onChange}
                 value={props.value}>
                 <option value="low">Low</option>
                 <option value="moderate">Moderate</option>
                 <option value="critical">Critical</option>
+            </select>
+        </div>
+    </>
+}
+/**
+ * É o input do select, não está completo ainda, falta receber calback
+ * que descreve qual valor foi escolhido
+ */
+function SelectInputStatus(props){
+    return <>
+          <div className="form-inline mb-3">
+            <label htmlFor="level">Bug's Status</label>
+            <select
+                className="form-control ml-2 col-12 col-sm-3 col-lg-2 " 
+                id="level"
+                onChange={props.onChange}
+                value={props.value}>
+                <option value="new bug">New Bug</option>
+                <option value="solving">Solving</option>
+                <option value="solved">Solved Bug</option>
             </select>
         </div>
     </>
@@ -172,8 +192,8 @@ class Bugs extends Component{
     }
     render(){
         return <>
-            <div className="container mt-3 container-height">
-                <div className="card m-1 d-flex flex-column">
+            <div className="container mt-sm-3 mx-sm-auto container-height p-0 m-0 p-sm-1 m-sm-1">
+                <div className="card m-1 d-flex flex-column ">
                     <div className="card-header">
                         <h2> <i className="material-icons">
                                   bug_report
@@ -210,3 +230,11 @@ const mapStateToProps = state => ({
     projects: state.projects
 })
 export default connect(mapStateToProps)( Bugs )
+export {
+    InputReact,
+    TextAreaReact,
+    SelectInputLevel,
+    ButtonInput,
+    ShowProjectOptions,
+    SelectInputStatus
+}

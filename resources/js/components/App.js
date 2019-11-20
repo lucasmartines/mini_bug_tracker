@@ -35,6 +35,7 @@ window.Axios = axios.create({
         'Content-Type': 'application/json'
     }
 })
+window.Axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
 /**
  * ====================================

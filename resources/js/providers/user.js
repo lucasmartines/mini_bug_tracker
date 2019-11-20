@@ -17,10 +17,11 @@ export default class User{
     static logoutWhenStatusCodeNotAuthorized(statusCode){
         if(statusCode == '401' || statusCode == '403'){
             
-            alert("Erro, Não Autorizado: "+err)
+            //alert("Erro, Não Autorizado: "+statusCode)
             Axios.post('logout')
             localStorage.setItem("token","")
-            
+            window.location.reload(true)
         }
     }
+    
 }

@@ -16,7 +16,7 @@ class Authenticate extends Middleware
     {
 
         if (! $request->expectsJson()) {
-          return route('home');
+          return route('err');
           //return "Not Authenticated";
         }
     }

@@ -36,7 +36,7 @@ Route::group([
 
  
     
-
+    /** USER CONTROLLER */
     Route::post('login', 'AuthController@login');
     Route::get('user/count',"AuthController@count");
 
@@ -45,6 +45,7 @@ Route::group([
     Route::post('refresh', 'AuthController@refresh');
     Route::post('me', 'AuthController@me');
 
+    Route::get('/user','AuthController@index');
     /*Bug controller*/
     Route::get('bug',"BugController@index");
     Route::get('bug/count',"BugController@count")    ;      
@@ -61,5 +62,7 @@ Route::group([
     Route::put('project/{id}',"ProjectController@update");
     Route::delete('project/{id}','ProjectController@delete');
 
+    /**Roles controller */
+    Route::get('roles','RoleController@index');
 
 });

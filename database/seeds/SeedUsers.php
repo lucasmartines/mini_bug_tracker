@@ -4,6 +4,7 @@ use Illuminate\Database\Seeder;
 use App\user;
 use App\Project;
 use App\Bug;
+
 class SeedUsers extends Seeder
 {
     /**
@@ -28,9 +29,12 @@ class SeedUsers extends Seeder
         Bug::create([
             'name' => 'BugTracker',
             'description' => 1,
-            'severity' => "Low",
+            'severity' => "low",
             'status' => 'new bug',
             'project_id' => 1
         ]);
+
+        
+
     }
 }

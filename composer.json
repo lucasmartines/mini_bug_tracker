@@ -63,8 +63,8 @@
         "post-install-cmd": [
             "@php artisan cache:clear",
             "@php artisan config:clear" ,
-            "@php artisan jwt:secret"
-                     
+            "@php artisan jwt:secret",
+            ""                    
         ]
     }
 }

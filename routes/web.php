@@ -13,7 +13,10 @@
 Route::get('/', function () {
     return view('welcome');
 })->name('home');
-
+Route::get('/err',function (){
+    return response('Erro não autorizado',401)
+                ->header('Content-Type','text/json');
+})->name("err");
 Route::get('{path}', function () {
     return view('welcome');
 })->where('path','([A-z\d-]+)?');
