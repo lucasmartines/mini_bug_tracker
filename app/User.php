@@ -11,6 +11,7 @@ class User extends Authenticatable implements JWTSubject
 {
     use Notifiable;
 
+    //public $with = ['roles'];
 
     public function roles(){
         return $this->belongsToMany('App\Role');
@@ -61,10 +62,6 @@ class User extends Authenticatable implements JWTSubject
     public function getJWTCustomClaims()
     {
         return [];
-        //return ["teste"=>"valor"];
     }
-    // public function getAuthPassword()
-    // {
-    //     return $this->password;
-    // }
+
 }
