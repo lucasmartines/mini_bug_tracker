@@ -46,7 +46,7 @@ function TabPane(props)
 function ShowRoles(props) {
     
     let items ;
-    console.log("teste")
+    
     if ( typeof props.roles.items !== 'undefined'  ){
         items = props.roles.items.map( item => <div key={item.id} className="badge badge-primary m-1 px-5">
                 {item.name}

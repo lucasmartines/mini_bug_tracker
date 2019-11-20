@@ -1,7 +1,7 @@
 import React,{Component} from 'react';
 import {Link} from 'react-router-dom';
 import User from '../../providers/user'
-
+import {connect} from 'react-redux'
 /**
  * unifica o li com o a ou link
  */
@@ -46,23 +46,37 @@ function doLogout(e){
  * rotas de login e cadastro,
  * verificam se o usuario está logado 
  */
-function LoginAndRegisterLink()
+function LoginAndRegisterLink(props)
 {
 
     if(!User.isLoggeIn()){
         return <div className="ml-lg-auto d-lg-flex ">
+            
             <ListLink name="Login" link="/login"/>
             <ListLink name="Register" link="/register"/>
         </div>
     }
     else{
+        
+        let showUser = <p className="text-white mt-2 mb-0 pb-0"> USER: Guest  </p>
+        
+
+        if(typeof props.user !== 'undefined' && User.isLoggeIn() )
+        {
+           
+            showUser = <p className="text-white mt-2 mb-0 pb-0">
+               USER: {props.user.name} |
+            </p>
+        }
+        
         return <div className="ml-lg-auto d-lg-flex ">
+             { showUser }
              <LogoutLink name="Logout" onClick={(e) => doLogout(e)}  />
         </div>
     }
 }
 
-export default class Login extends Component{
+ class Login extends Component{
     constructor(props){
         super(props)
     }
@@ -95,7 +109,7 @@ export default class Login extends Component{
                             {User.isLoggeIn() && <ListLink name="Admin Project" link="/projects"/> }
                             {User.isLoggeIn() && <ListLink name="Admin Bugs" link="/bugspanel" />}
                         
-                        <LoginAndRegisterLink/>
+                        <LoginAndRegisterLink user={this.props.user}/>
 
                     </ul>
                 </div>
@@ -103,3 +117,8 @@ export default class Login extends Component{
         )
     }
 }
+
+const mapStateToProps = state => ({
+    user: state.users.user
+})
+export default connect(mapStateToProps)(Login)

@@ -67,6 +67,15 @@ import {
     Link
   } from "react-router-dom";
 
+
+  /**
+   * Get User data
+   */
+import {loadUser} from '../store/actions/loadUserAction'
+loadUser( )
+
+
+
 import {Provider} from 'react-redux'
 
 function App(  ) {
