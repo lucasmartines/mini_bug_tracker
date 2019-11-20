@@ -1,3 +1,7 @@
+import User from '../../providers/user.js';
+import {STORE_PROJECT} from './types'
+
+
 export const saveProject = () => dispatch => {
     Axios.post('/project')
         .then( project =>  dispatch ({
@@ -5,10 +9,8 @@ export const saveProject = () => dispatch => {
             payload: project.data
         })  ) 
         .catch( err =>{ 
-        	console.log("erro: Não Autorizado "+ err ) 
-    		alert("Erro, Não Autorizado: "+err)
+            User.logoutWhenStatusCodeNotAuthorized(err.response.status);
 
-    		 localStorage.setItem("token","")
         	dispatch({
 	            type:FAIL_FETCH_BUGS,
 	            payload:"Erro Não autorizado"

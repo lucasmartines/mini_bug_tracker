@@ -1,5 +1,5 @@
 import React,{Component} from 'react';
-
+import User from '../../providers/user.js'
 import {connect} from 'react-redux';
 import {loadProjects} from '../../store/actions/loadProjectsAction.js'
 /** 
@@ -33,10 +33,10 @@ function InputReact  (props) {
  */
 function TextAreaReact(props){
     return<>
-         <div class="form-group mb-3">
+         <div className="form-group mb-3">
             <label htmlFor={props.for}>{props.inputName}</label>
             <textarea 
-                class="form-control col-12 col-sm-12 " 
+                className="form-control col-12 col-sm-12 " 
                 id={props.for} 
                 rows={props.rows || 5}
                 onChange={props.onChange}></textarea>
@@ -162,7 +162,8 @@ class Bugs extends Component{
                     alert("Bug adicionado no sistema corretamente!")
                 })
                 .catch( err => {console.log(err)
-                     localStorage.setItem("token","")
+                     User.logoutWhenStatusCodeNotAuthorized(err.response.status)
+
                 })
         }   
         else{
@@ -174,7 +175,7 @@ class Bugs extends Component{
             <div className="container mt-3 container-height">
                 <div className="card m-1 d-flex flex-column">
                     <div className="card-header">
-                        <h2> <i class="material-icons">
+                        <h2> <i className="material-icons">
                                   bug_report
                             </i>
                             Reportar um Bug </h2>

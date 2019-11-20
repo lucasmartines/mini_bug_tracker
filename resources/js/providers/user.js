@@ -5,10 +5,22 @@ export default class User{
             // window.location = "/login";
             return true;
          }
+         else{
+            Axios.post('logout')
+         }
          return false;
     }
     static logout(){
 
          localStorage.setItem("token","")
+    }
+    static logoutWhenStatusCodeNotAuthorized(statusCode){
+        if(statusCode == '401' || statusCode == '403'){
+            
+            alert("Erro, Não Autorizado: "+err)
+            Axios.post('logout')
+            localStorage.setItem("token","")
+            
+        }
     }
 }

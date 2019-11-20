@@ -1,5 +1,5 @@
 import {FETCH_BUGS,NEW_BUG,FAIL_FETCH_BUGS} from './types'
-
+import User from '../../providers/user.js';
 
 export const fetchBugs = () => dispatch =>{
     //console.log("FETCHING")
@@ -10,10 +10,9 @@ export const fetchBugs = () => dispatch =>{
             payload:bugs.data
         }))
         .catch( err =>{ 
-        	console.log("erro: Não Autorizado "+ err ) 
-    		alert("Erro, Não Autorizado: "+err)
-            localStorage.setItem("token","")
-            
+
+            User.logoutWhenStatusCodeNotAuthorized(err.response.status);
+    
         	dispatch({
 	            type:FAIL_FETCH_BUGS,
 	            payload:"Erro Não autorizado"

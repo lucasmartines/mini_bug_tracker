@@ -15,10 +15,10 @@ const ShowItemBug = (name,value) => {
 class AdminBugs extends Component {
     constructor(props){
         super(props)
-        /*
+        
         if ( !User.isLoggeIn() ) {
             this.props.history.push("/") 
-        }*/
+        }
     }
     componentDidMount(){
         this.props.fetchBugs();
@@ -32,18 +32,42 @@ class AdminBugs extends Component {
         }
                 
     }
+    deleteProject(id){
+        if( window.confirm("Tem certeza que quer deletar o bug "+id+"?")){
+            Axios.delete("bug/"+id)
+                .then(data=> alert(data.data.message));
+            this.props.fetchBugs();
+        }
+        
+    }
     render() {
         console.log('BUGS '+this.props.bugs)
         const postItems = this.props.bugs.map(bug=>(
       
-            <div key={bug.id}>
-                <h5>Name:  <b>{bug.name}</b></h5>
-                <h5> <b>description:</b> <br/>{bug.description} </h5>
-                <p>status: {bug.status} </p>
-                <p>severity: {bug.severity} </p>
-                <p>User name: {bug.user_name} </p>
-                {this.showProject(bug.project)}
+            <div className="mb-3" key={bug.id}>
+                <h4>Name:  <b>{bug.name}</b></h4>
+                <h5> <b>description:</b> {bug.description} </h5>
                 
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th> Status </th>
+                            <th> Severity </th>
+                            <th> UserName </th>
+                            <th> Project </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td> {bug.status} </td>
+                            <td> {bug.severity} </td>
+                            <td> {bug.user_name || "anonymous"} </td>
+                            <td>  {this.showProject(bug.project)} </td>
+                        </tr>   
+                    </tbody>
+                </table>
+               
+                <button className="btn btn-danger" onClick={()=>this.deleteProject(bug.id)}> Delete Project </button>
                 <hr/>
             </div>  
         ))
@@ -52,7 +76,7 @@ class AdminBugs extends Component {
                 <div className="card">
                     <div className="card-header">
                         <h2> 
-                            <i class="material-icons">
+                            <i className="material-icons">
                                 bug_report
                             </i>
                             Admin Bugs Panel

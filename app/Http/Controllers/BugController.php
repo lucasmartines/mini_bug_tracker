@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Bug;
 use App\Project;
+use Illuminate\Support\Facades\Auth;
+
 class BugController extends Controller
 {
     //
@@ -39,13 +41,16 @@ class BugController extends Controller
         $bug->description = $req->input("description") ;
         $bug->severity = $req->input("severity") ;
         $bug->status = "new bug";
-	    $bug_project_id = $req->input("project") ;
-        $bug->project_id = $bug_project_id;
-
+        
+        $bug_project_id = $req->input("project") ;
         $project = Project::find($bug_project_id);
-        $bug->save();        
+        
+        if (Auth::check()) {
+            $bug->user_name = Auth::user()->name;
+        }
 
-      //  $project->bug()->save($bug);       
+        $bug->save();        
+        $project->bug()->save($bug);       
         
     	return response()->json($bug);
     }

@@ -21,9 +21,9 @@ class CreateBugsTable extends Migration
             
             $table->string("status")->nullable();
             $table->string("user_name")->nullable();
-            $table->Integer("project_id")->nullable();
+            $table->integer("project_id")->nullable();
             
-            $table->foreign("project_id")->references("id")->on("bugs")->onDelete('cascade');
+            $table->foreign("project_id")->references("id")->on("projects")->onDelete('cascade');
 
 
             $table->timestamps();
