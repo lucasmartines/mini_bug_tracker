@@ -60,7 +60,10 @@ class AdminBugs extends Component {
                     <tbody>
                         <tr>
                             <td> {bug.status} </td>
-                            <td> {bug.severity} </td>
+                            <td> <span class="badge badge-primary w-75 py-2">
+                                 {bug.severity} 
+                                 </span>
+                            </td>
                             <td> {bug.user_name || "anonymous"} </td>
                             <td>  {this.showProject(bug.project)} </td>
                         </tr>   
