@@ -37,7 +37,7 @@ class AdminBugs extends Component {
         const postItems = this.props.bugs.map(bug=>(
       
             <div key={bug.id}>
-                <h5>Name: <b>{bug.name}</b></h5>
+                <h5>Name:  <b>{bug.name}</b></h5>
                 <h5> <b>description:</b> <br/>{bug.description} </h5>
                 <p>status: {bug.status} </p>
                 <p>severity: {bug.severity} </p>
