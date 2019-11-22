@@ -17,7 +17,7 @@ class BugController extends Controller
     }
     public function index()
     {
-    	$bugs = Bug::paginate(10)->all();
+    	$bugs = Bug::paginate(5);
 
     	return response()->json($bugs);
     }

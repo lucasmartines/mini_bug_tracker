@@ -1,14 +1,17 @@
 import {FETCH_BUGS,NEW_BUG,FAIL_FETCH_BUGS} from './types'
 import User from '../../providers/user.js';
 
-export const fetchBugs = () => dispatch =>{
+export const  fetchBugs = (url) => dispatch =>  {
     //console.log("FETCHING")
-
-    Axios.get('/bug')
-    	.then(bugs => dispatch({
-            type:FETCH_BUGS,
-            payload:bugs.data
-        }))
+    let bugData = {}
+     Axios.get(url)
+    	.then(bugs => {
+            dispatch({
+                type:FETCH_BUGS,
+                payload:bugs.data
+            }) 
+            bugData = bugs;
+        })
         .catch( err =>{ 
 
             User.logoutWhenStatusCodeNotAuthorized(err.response.status);
@@ -20,5 +23,6 @@ export const fetchBugs = () => dispatch =>{
 
         })
 
+        return bugData
     
 }

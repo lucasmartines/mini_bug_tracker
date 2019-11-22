@@ -77762,6 +77762,588 @@ function useWaitForDOMRef(ref, onResolved) {
 
 /***/ }),
 
+/***/ "./node_modules/react-paginate/dist/BreakView.js":
+/*!*******************************************************!*\
+  !*** ./node_modules/react-paginate/dist/BreakView.js ***!
+  \*******************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+
+var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var BreakView = function BreakView(props) {
+  var breakLabel = props.breakLabel,
+      breakClassName = props.breakClassName,
+      breakLinkClassName = props.breakLinkClassName,
+      onClick = props.onClick;
+
+  var className = breakClassName || 'break';
+
+  return _react2.default.createElement(
+    'li',
+    { className: className },
+    _react2.default.createElement(
+      'a',
+      {
+        className: breakLinkClassName,
+        onClick: onClick,
+        role: 'button',
+        tabIndex: '0',
+        onKeyPress: onClick
+      },
+      breakLabel
+    )
+  );
+};
+
+BreakView.propTypes = {
+  breakLabel: _propTypes2.default.oneOfType([_propTypes2.default.string, _propTypes2.default.node]),
+  breakClassName: _propTypes2.default.string,
+  breakLinkClassName: _propTypes2.default.string,
+  onClick: _propTypes2.default.func.isRequired
+};
+
+exports.default = BreakView;
+//# sourceMappingURL=BreakView.js.map
+
+/***/ }),
+
+/***/ "./node_modules/react-paginate/dist/PageView.js":
+/*!******************************************************!*\
+  !*** ./node_modules/react-paginate/dist/PageView.js ***!
+  \******************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+
+var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var PageView = function PageView(props) {
+  var pageClassName = props.pageClassName;
+  var pageLinkClassName = props.pageLinkClassName;
+
+  var onClick = props.onClick;
+  var href = props.href;
+  var ariaLabel = props.ariaLabel || 'Page ' + props.page + (props.extraAriaContext ? ' ' + props.extraAriaContext : '');
+  var ariaCurrent = null;
+
+  if (props.selected) {
+    ariaCurrent = 'page';
+
+    ariaLabel = props.ariaLabel || 'Page ' + props.page + ' is your current page';
+
+    if (typeof pageClassName !== 'undefined') {
+      pageClassName = pageClassName + ' ' + props.activeClassName;
+    } else {
+      pageClassName = props.activeClassName;
+    }
+
+    if (typeof pageLinkClassName !== 'undefined') {
+      if (typeof props.activeLinkClassName !== 'undefined') {
+        pageLinkClassName = pageLinkClassName + ' ' + props.activeLinkClassName;
+      }
+    } else {
+      pageLinkClassName = props.activeLinkClassName;
+    }
+  }
+
+  return _react2.default.createElement(
+    'li',
+    { className: pageClassName },
+    _react2.default.createElement(
+      'a',
+      {
+        onClick: onClick,
+        role: 'button',
+        className: pageLinkClassName,
+        href: href,
+        tabIndex: '0',
+        'aria-label': ariaLabel,
+        'aria-current': ariaCurrent,
+        onKeyPress: onClick
+      },
+      props.page
+    )
+  );
+};
+
+PageView.propTypes = {
+  onClick: _propTypes2.default.func.isRequired,
+  selected: _propTypes2.default.bool.isRequired,
+  pageClassName: _propTypes2.default.string,
+  pageLinkClassName: _propTypes2.default.string,
+  activeClassName: _propTypes2.default.string,
+  activeLinkClassName: _propTypes2.default.string,
+  extraAriaContext: _propTypes2.default.string,
+  href: _propTypes2.default.string,
+  ariaLabel: _propTypes2.default.string,
+  page: _propTypes2.default.number.isRequired
+};
+
+exports.default = PageView;
+//# sourceMappingURL=PageView.js.map
+
+/***/ }),
+
+/***/ "./node_modules/react-paginate/dist/PaginationBoxView.js":
+/*!***************************************************************!*\
+  !*** ./node_modules/react-paginate/dist/PaginationBoxView.js ***!
+  \***************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+
+var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _PageView = __webpack_require__(/*! ./PageView */ "./node_modules/react-paginate/dist/PageView.js");
+
+var _PageView2 = _interopRequireDefault(_PageView);
+
+var _BreakView = __webpack_require__(/*! ./BreakView */ "./node_modules/react-paginate/dist/BreakView.js");
+
+var _BreakView2 = _interopRequireDefault(_BreakView);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var PaginationBoxView = function (_Component) {
+  _inherits(PaginationBoxView, _Component);
+
+  function PaginationBoxView(props) {
+    _classCallCheck(this, PaginationBoxView);
+
+    var _this = _possibleConstructorReturn(this, (PaginationBoxView.__proto__ || Object.getPrototypeOf(PaginationBoxView)).call(this, props));
+
+    _this.handlePreviousPage = function (evt) {
+      var selected = _this.state.selected;
+
+      evt.preventDefault ? evt.preventDefault() : evt.returnValue = false;
+      if (selected > 0) {
+        _this.handlePageSelected(selected - 1, evt);
+      }
+    };
+
+    _this.handleNextPage = function (evt) {
+      var selected = _this.state.selected;
+      var pageCount = _this.props.pageCount;
+
+
+      evt.preventDefault ? evt.preventDefault() : evt.returnValue = false;
+      if (selected < pageCount - 1) {
+        _this.handlePageSelected(selected + 1, evt);
+      }
+    };
+
+    _this.handlePageSelected = function (selected, evt) {
+      evt.preventDefault ? evt.preventDefault() : evt.returnValue = false;
+
+      if (_this.state.selected === selected) return;
+
+      _this.setState({ selected: selected });
+
+      // Call the callback with the new selected item:
+      _this.callCallback(selected);
+    };
+
+    _this.handleBreakClick = function (index, evt) {
+      evt.preventDefault ? evt.preventDefault() : evt.returnValue = false;
+
+      var selected = _this.state.selected;
+
+
+      _this.handlePageSelected(selected < index ? _this.getForwardJump() : _this.getBackwardJump(), evt);
+    };
+
+    _this.callCallback = function (selectedItem) {
+      if (typeof _this.props.onPageChange !== 'undefined' && typeof _this.props.onPageChange === 'function') {
+        _this.props.onPageChange({ selected: selectedItem });
+      }
+    };
+
+    _this.pagination = function () {
+      var items = [];
+      var _this$props = _this.props,
+          pageRangeDisplayed = _this$props.pageRangeDisplayed,
+          pageCount = _this$props.pageCount,
+          marginPagesDisplayed = _this$props.marginPagesDisplayed,
+          breakLabel = _this$props.breakLabel,
+          breakClassName = _this$props.breakClassName,
+          breakLinkClassName = _this$props.breakLinkClassName;
+      var selected = _this.state.selected;
+
+
+      if (pageCount <= pageRangeDisplayed) {
+        for (var index = 0; index < pageCount; index++) {
+          items.push(_this.getPageElement(index));
+        }
+      } else {
+        var leftSide = pageRangeDisplayed / 2;
+        var rightSide = pageRangeDisplayed - leftSide;
+
+        // If the selected page index is on the default right side of the pagination,
+        // we consider that the new right side is made up of it (= only one break element).
+        // If the selected page index is on the default left side of the pagination,
+        // we consider that the new left side is made up of it (= only one break element).
+        if (selected > pageCount - pageRangeDisplayed / 2) {
+          rightSide = pageCount - selected;
+          leftSide = pageRangeDisplayed - rightSide;
+        } else if (selected < pageRangeDisplayed / 2) {
+          leftSide = selected;
+          rightSide = pageRangeDisplayed - leftSide;
+        }
+
+        var _index = void 0;
+        var page = void 0;
+        var breakView = void 0;
+        var createPageView = function createPageView(index) {
+          return _this.getPageElement(index);
+        };
+
+        for (_index = 0; _index < pageCount; _index++) {
+          page = _index + 1;
+
+          // If the page index is lower than the margin defined,
+          // the page has to be displayed on the left side of
+          // the pagination.
+          if (page <= marginPagesDisplayed) {
+            items.push(createPageView(_index));
+            continue;
+          }
+
+          // If the page index is greater than the page count
+          // minus the margin defined, the page has to be
+          // displayed on the right side of the pagination.
+          if (page > pageCount - marginPagesDisplayed) {
+            items.push(createPageView(_index));
+            continue;
+          }
+
+          // If the page index is near the selected page index
+          // and inside the defined range (pageRangeDisplayed)
+          // we have to display it (it will create the center
+          // part of the pagination).
+          if (_index >= selected - leftSide && _index <= selected + rightSide) {
+            items.push(createPageView(_index));
+            continue;
+          }
+
+          // If the page index doesn't meet any of the conditions above,
+          // we check if the last item of the current "items" array
+          // is a break element. If not, we add a break element, else,
+          // we do nothing (because we don't want to display the page).
+          if (breakLabel && items[items.length - 1] !== breakView) {
+            breakView = _react2.default.createElement(_BreakView2.default, {
+              key: _index,
+              breakLabel: breakLabel,
+              breakClassName: breakClassName,
+              breakLinkClassName: breakLinkClassName,
+              onClick: _this.handleBreakClick.bind(null, _index)
+            });
+            items.push(breakView);
+          }
+        }
+      }
+
+      return items;
+    };
+
+    var initialSelected = void 0;
+    if (props.initialPage) {
+      initialSelected = props.initialPage;
+    } else if (props.forcePage) {
+      initialSelected = props.forcePage;
+    } else {
+      initialSelected = 0;
+    }
+
+    _this.state = {
+      selected: initialSelected
+    };
+    return _this;
+  }
+
+  _createClass(PaginationBoxView, [{
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      var _props = this.props,
+          initialPage = _props.initialPage,
+          disableInitialCallback = _props.disableInitialCallback,
+          extraAriaContext = _props.extraAriaContext;
+      // Call the callback with the initialPage item:
+
+      if (typeof initialPage !== 'undefined' && !disableInitialCallback) {
+        this.callCallback(initialPage);
+      }
+
+      if (extraAriaContext) {
+        console.warn('DEPRECATED (react-paginate): The extraAriaContext prop is deprecated. You should now use the ariaLabelBuilder instead.');
+      }
+    }
+  }, {
+    key: 'componentDidUpdate',
+    value: function componentDidUpdate(prevProps) {
+      if (typeof this.props.forcePage !== 'undefined' && this.props.forcePage !== prevProps.forcePage) {
+        this.setState({ selected: this.props.forcePage });
+      }
+    }
+  }, {
+    key: 'getForwardJump',
+    value: function getForwardJump() {
+      var selected = this.state.selected;
+      var _props2 = this.props,
+          pageCount = _props2.pageCount,
+          pageRangeDisplayed = _props2.pageRangeDisplayed;
+
+
+      var forwardJump = selected + pageRangeDisplayed;
+      return forwardJump >= pageCount ? pageCount - 1 : forwardJump;
+    }
+  }, {
+    key: 'getBackwardJump',
+    value: function getBackwardJump() {
+      var selected = this.state.selected;
+      var pageRangeDisplayed = this.props.pageRangeDisplayed;
+
+
+      var backwardJump = selected - pageRangeDisplayed;
+      return backwardJump < 0 ? 0 : backwardJump;
+    }
+  }, {
+    key: 'hrefBuilder',
+    value: function hrefBuilder(pageIndex) {
+      var _props3 = this.props,
+          hrefBuilder = _props3.hrefBuilder,
+          pageCount = _props3.pageCount;
+
+      if (hrefBuilder && pageIndex !== this.state.selected && pageIndex >= 0 && pageIndex < pageCount) {
+        return hrefBuilder(pageIndex + 1);
+      }
+    }
+  }, {
+    key: 'ariaLabelBuilder',
+    value: function ariaLabelBuilder(pageIndex) {
+      var selected = pageIndex === this.state.selected;
+      if (this.props.ariaLabelBuilder && pageIndex >= 0 && pageIndex < this.props.pageCount) {
+        var label = this.props.ariaLabelBuilder(pageIndex + 1, selected);
+        // DEPRECATED: The extraAriaContext prop was used to add additional context
+        // to the aria-label. Users should now use the ariaLabelBuilder instead.
+        if (this.props.extraAriaContext && !selected) {
+          label = label + ' ' + this.props.extraAriaContext;
+        }
+        return label;
+      }
+    }
+  }, {
+    key: 'getPageElement',
+    value: function getPageElement(index) {
+      var selected = this.state.selected;
+      var _props4 = this.props,
+          pageClassName = _props4.pageClassName,
+          pageLinkClassName = _props4.pageLinkClassName,
+          activeClassName = _props4.activeClassName,
+          activeLinkClassName = _props4.activeLinkClassName,
+          extraAriaContext = _props4.extraAriaContext;
+
+
+      return _react2.default.createElement(_PageView2.default, {
+        key: index,
+        onClick: this.handlePageSelected.bind(null, index),
+        selected: selected === index,
+        pageClassName: pageClassName,
+        pageLinkClassName: pageLinkClassName,
+        activeClassName: activeClassName,
+        activeLinkClassName: activeLinkClassName,
+        extraAriaContext: extraAriaContext,
+        href: this.hrefBuilder(index),
+        ariaLabel: this.ariaLabelBuilder(index),
+        page: index + 1
+      });
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      var _props5 = this.props,
+          disabledClassName = _props5.disabledClassName,
+          previousClassName = _props5.previousClassName,
+          nextClassName = _props5.nextClassName,
+          pageCount = _props5.pageCount,
+          containerClassName = _props5.containerClassName,
+          previousLinkClassName = _props5.previousLinkClassName,
+          previousLabel = _props5.previousLabel,
+          nextLinkClassName = _props5.nextLinkClassName,
+          nextLabel = _props5.nextLabel;
+      var selected = this.state.selected;
+
+
+      var previousClasses = previousClassName + (selected === 0 ? ' ' + disabledClassName : '');
+      var nextClasses = nextClassName + (selected === pageCount - 1 ? ' ' + disabledClassName : '');
+
+      var previousAriaDisabled = selected === 0 ? 'true' : 'false';
+      var nextAriaDisabled = selected === pageCount - 1 ? 'true' : 'false';
+
+      return _react2.default.createElement(
+        'ul',
+        { className: containerClassName },
+        _react2.default.createElement(
+          'li',
+          { className: previousClasses },
+          _react2.default.createElement(
+            'a',
+            {
+              onClick: this.handlePreviousPage,
+              className: previousLinkClassName,
+              href: this.hrefBuilder(selected - 1),
+              tabIndex: '0',
+              role: 'button',
+              onKeyPress: this.handlePreviousPage,
+              'aria-disabled': previousAriaDisabled
+            },
+            previousLabel
+          )
+        ),
+        this.pagination(),
+        _react2.default.createElement(
+          'li',
+          { className: nextClasses },
+          _react2.default.createElement(
+            'a',
+            {
+              onClick: this.handleNextPage,
+              className: nextLinkClassName,
+              href: this.hrefBuilder(selected + 1),
+              tabIndex: '0',
+              role: 'button',
+              onKeyPress: this.handleNextPage,
+              'aria-disabled': nextAriaDisabled
+            },
+            nextLabel
+          )
+        )
+      );
+    }
+  }]);
+
+  return PaginationBoxView;
+}(_react.Component);
+
+PaginationBoxView.propTypes = {
+  pageCount: _propTypes2.default.number.isRequired,
+  pageRangeDisplayed: _propTypes2.default.number.isRequired,
+  marginPagesDisplayed: _propTypes2.default.number.isRequired,
+  previousLabel: _propTypes2.default.node,
+  nextLabel: _propTypes2.default.node,
+  breakLabel: _propTypes2.default.oneOfType([_propTypes2.default.string, _propTypes2.default.node]),
+  hrefBuilder: _propTypes2.default.func,
+  onPageChange: _propTypes2.default.func,
+  initialPage: _propTypes2.default.number,
+  forcePage: _propTypes2.default.number,
+  disableInitialCallback: _propTypes2.default.bool,
+  containerClassName: _propTypes2.default.string,
+  pageClassName: _propTypes2.default.string,
+  pageLinkClassName: _propTypes2.default.string,
+  activeClassName: _propTypes2.default.string,
+  activeLinkClassName: _propTypes2.default.string,
+  previousClassName: _propTypes2.default.string,
+  nextClassName: _propTypes2.default.string,
+  previousLinkClassName: _propTypes2.default.string,
+  nextLinkClassName: _propTypes2.default.string,
+  disabledClassName: _propTypes2.default.string,
+  breakClassName: _propTypes2.default.string,
+  breakLinkClassName: _propTypes2.default.string,
+  extraAriaContext: _propTypes2.default.string,
+  ariaLabelBuilder: _propTypes2.default.func
+};
+PaginationBoxView.defaultProps = {
+  pageCount: 10,
+  pageRangeDisplayed: 2,
+  marginPagesDisplayed: 3,
+  activeClassName: 'selected',
+  previousClassName: 'previous',
+  nextClassName: 'next',
+  previousLabel: 'Previous',
+  nextLabel: 'Next',
+  breakLabel: '...',
+  disabledClassName: 'disabled',
+  disableInitialCallback: false
+};
+exports.default = PaginationBoxView;
+//# sourceMappingURL=PaginationBoxView.js.map
+
+/***/ }),
+
+/***/ "./node_modules/react-paginate/dist/index.js":
+/*!***************************************************!*\
+  !*** ./node_modules/react-paginate/dist/index.js ***!
+  \***************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _PaginationBoxView = __webpack_require__(/*! ./PaginationBoxView */ "./node_modules/react-paginate/dist/PaginationBoxView.js");
+
+var _PaginationBoxView2 = _interopRequireDefault(_PaginationBoxView);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = _PaginationBoxView2.default;
+//# sourceMappingURL=index.js.map
+
+/***/ }),
+
 /***/ "./node_modules/react-redux/es/components/Context.js":
 /*!***********************************************************!*\
   !*** ./node_modules/react-redux/es/components/Context.js ***!
@@ -87203,8 +87785,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _store_actions_bugPostAction_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../store/actions/bugPostAction.js */ "./resources/js/store/actions/bugPostAction.js");
 /* harmony import */ var _providers_user__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../providers/user */ "./resources/js/providers/user.js");
 /* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/index.js");
-/* harmony import */ var _RegisterBug_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./RegisterBug.js */ "./resources/js/components/bugs/RegisterBug.js");
+/* harmony import */ var react_paginate__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react-paginate */ "./node_modules/react-paginate/dist/index.js");
+/* harmony import */ var react_paginate__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(react_paginate__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var _RegisterBug_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./RegisterBug.js */ "./resources/js/components/bugs/RegisterBug.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -87229,6 +87815,7 @@ function _nonIterableRest() { throw new TypeError("Invalid attempt to destructur
 function _iterableToArrayLimit(arr, i) { if (!(Symbol.iterator in Object(arr) || Object.prototype.toString.call(arr) === "[object Arguments]")) { return; } var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
 
 
 
@@ -87304,22 +87891,22 @@ var EditProject = function EditProject(props) {
     }
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__["Modal"].Header, {
     closeButton: true
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__["Modal"].Title, null, "Update  ")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__["Modal"].Body, null, "Bug Name", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_RegisterBug_js__WEBPACK_IMPORTED_MODULE_5__["InputReact"], {
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__["Modal"].Title, null, "Update  ")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__["Modal"].Body, null, "Bug Name", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_RegisterBug_js__WEBPACK_IMPORTED_MODULE_6__["InputReact"], {
     "default": props.bug.name,
     onChange: function onChange(e) {
       setName(e.target.value);
     }
-  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_RegisterBug_js__WEBPACK_IMPORTED_MODULE_5__["SelectInputLevel"], {
+  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_RegisterBug_js__WEBPACK_IMPORTED_MODULE_6__["SelectInputLevel"], {
     value: props.bug.severity,
     onChange: function onChange(e) {
       setBugSeverity(e.target.value);
     }
-  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_RegisterBug_js__WEBPACK_IMPORTED_MODULE_5__["SelectInputStatus"], {
+  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_RegisterBug_js__WEBPACK_IMPORTED_MODULE_6__["SelectInputStatus"], {
     value: props.bug.status,
     onChange: function onChange(e) {
       setBugStatus(e.target.value);
     }
-  }), "Bug Description", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_RegisterBug_js__WEBPACK_IMPORTED_MODULE_5__["TextAreaReact"], {
+  }), "Bug Description", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_RegisterBug_js__WEBPACK_IMPORTED_MODULE_6__["TextAreaReact"], {
     "default": props.bug.description,
     onChange: function onChange(e) {
       setBugDescription(e.target.value);
@@ -87351,7 +87938,8 @@ function (_Component) {
       selectedBug: {
         name: "",
         description: ""
-      }
+      },
+      currentPage: 1
     };
 
     if (!_providers_user__WEBPACK_IMPORTED_MODULE_3__["default"].isLoggeIn()) {
@@ -87359,13 +87947,14 @@ function (_Component) {
     }
 
     _this.updateBug = _this.updateBug.bind(_assertThisInitialized(_this));
+    _this.handlePageClick = _this.handlePageClick.bind(_assertThisInitialized(_this));
     return _this;
   }
 
   _createClass(AdminBugs, [{
     key: "componentDidMount",
     value: function componentDidMount() {
-      this.props.fetchBugs();
+      console.log('FETCH BUGS ', this.props.fetchBugs('/bug'));
     }
   }, {
     key: "showProject",
@@ -87406,7 +87995,6 @@ function (_Component) {
         severity: bugSeverity,
         status: bugStatus
       };
-      console.log("PENTA: ", newProject);
       Axios.put('bug/' + newProject.id, newProject).then(function (data) {
         alert(data.data.message);
 
@@ -87420,54 +88008,71 @@ function (_Component) {
       });
     }
   }, {
+    key: "handlePageClick",
+    value: function handlePageClick(data) {
+      console.log('PAGINATE', data.selected + 1);
+      var page = data.selected + 1;
+      this.props.fetchBugs('/bug?page=' + page);
+    }
+  }, {
     key: "render",
     value: function render() {
-      var _this4 = this;
+      var _this4 = this,
+          _React$createElement;
 
-      console.log('BUGS ' + this.props.bugs);
-      var postItems = this.props.bugs.map(function (bug) {
-        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-          className: "mb-3",
-          key: bug.id
-        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", null, "Name:  ", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("b", null, bug.name)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h5", null, " ", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("b", null, "description:"), " ", bug.description, " "), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("table", {
-          "class": "table table-striped"
-        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("thead", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, " Status "), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, " Severity "), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", {
-          className: "d-md-none d-lg-block"
-        }, " UserName "), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, " Project "))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tbody", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, " ", bug.status, " "), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, " ", showSeverity(bug.severity)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, " ", bug.user_name || "anonymous", " "), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, "  ", _this4.showProject(bug.project), " ")))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-          className: "row"
-        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-          className: "btn btn-danger m-1 d-flex",
-          onClick: function onClick() {
-            return _this4.deleteProject(bug.id);
-          }
-        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
-          "class": "material-icons"
-        }, " delete "), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
-          className: "d-md-none d-lg-inline-flex"
-        }, " Delete  ")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-          className: "btn btn-primary m-1 d-flex",
-          onClick: function onClick() {
-            _this4.setState({
-              selectedBug: {
-                id: bug.id,
-                name: bug.name,
-                description: bug.description,
-                status: bug.status,
-                user_name: bug.user_name,
-                severity: bug.severity
-              }
-            });
+      console.log('BUGS ', this.props.bugs);
+      var postItems = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, " Loading items ");
 
-            _this4.setState({
-              openModal: true
-            });
-          }
-        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
-          "class": "material-icons"
-        }, " edit "), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
-          className: "d-md-none d-lg-inline-flex"
-        }, " Update  "))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("hr", null));
-      });
+      if (this.props.bugs.data !== undefined) {
+        postItems = this.props.bugs.data.map(function (bug) {
+          return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+            className: "mb-3",
+            key: bug.id
+          }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", null, "Name:  ", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("b", null, bug.name)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h5", null, " ", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("b", null, "description:"), " ", bug.description, " "), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("table", {
+            "class": "table table-striped"
+          }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("thead", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, " Status "), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, " Severity "), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", {
+            className: "d-md-none d-lg-block"
+          }, " UserName "), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, " Project "))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tbody", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, " ", bug.status, " "), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, " ", showSeverity(bug.severity)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, " ", bug.user_name || "anonymous", " "), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, "  ", _this4.showProject(bug.project), " ")))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+            className: "row"
+          }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+            className: "btn btn-danger m-1 d-flex",
+            onClick: function onClick() {
+              return _this4.deleteProject(bug.id);
+            }
+          }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+            "class": "material-icons"
+          }, " delete "), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+            className: "d-md-none d-lg-inline-flex"
+          }, " Delete  ")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+            className: "btn btn-primary m-1 d-flex",
+            onClick: function onClick() {
+              _this4.setState({
+                selectedBug: {
+                  id: bug.id,
+                  name: bug.name,
+                  description: bug.description,
+                  status: bug.status,
+                  user_name: bug.user_name,
+                  severity: bug.severity
+                }
+              });
+
+              _this4.setState({
+                openModal: true
+              });
+            }
+          }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+            "class": "material-icons"
+          }, " edit "), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+            className: "d-md-none d-lg-inline-flex"
+          }, " Update  "))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("hr", null));
+        }
+        /** end loop */
+        );
+      }
+      /** end if loop */
+
+
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "container container-height mt-sm-3 mx-sm-auto container-height p-0 m-0 p-sm-1 m-sm-1"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -87478,7 +88083,22 @@ function (_Component) {
         className: "material-icons"
       }, "bug_report"), "Admin Bugs Panel")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "card-body"
-      }, postItems))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(EditProject, {
+      }, postItems)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "d-flex justify-content-center mt-3"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_paginate__WEBPACK_IMPORTED_MODULE_5___default.a, (_React$createElement = {
+        pageCount: this.props.bugs.last_page,
+        marginPagesDisplayed: 2,
+        pageRangeDisplayed: this.props.bugs.per_page,
+        previousLabel: 'previous',
+        nextLabel: 'next',
+        breakLabel: '...',
+        breakClassName: 'break-me',
+        onPageChange: this.handlePageClick,
+        containerClassName: 'pagination',
+        subContainerClassName: 'pages pagination',
+        activeClassName: 'active',
+        pageClassName: 'page-item'
+      }, _defineProperty(_React$createElement, "containerClassName", 'pagination'), _defineProperty(_React$createElement, "pageLinkClassName", 'page-link'), _defineProperty(_React$createElement, "nextClassName", 'page-link'), _defineProperty(_React$createElement, "previousClassName", 'page-link'), _React$createElement)))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(EditProject, {
         bug: this.state.selectedBug,
         show: this.state.openModal,
         onHide: function onHide() {
@@ -88948,14 +89568,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _providers_user_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../providers/user.js */ "./resources/js/providers/user.js");
 
 
-var fetchBugs = function fetchBugs() {
+var fetchBugs = function fetchBugs(url) {
   return function (dispatch) {
     //console.log("FETCHING")
-    Axios.get('/bug').then(function (bugs) {
-      return dispatch({
+    var bugData = {};
+    Axios.get(url).then(function (bugs) {
+      dispatch({
         type: _types__WEBPACK_IMPORTED_MODULE_0__["FETCH_BUGS"],
         payload: bugs.data
       });
+      bugData = bugs;
     })["catch"](function (err) {
       _providers_user_js__WEBPACK_IMPORTED_MODULE_1__["default"].logoutWhenStatusCodeNotAuthorized(err.response.status);
       dispatch({
@@ -88963,6 +89585,7 @@ var fetchBugs = function fetchBugs() {
         payload: "Erro Não autorizado"
       });
     });
+    return bugData;
   };
 };
 
@@ -89142,7 +89765,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 var initialState = {
-  items: [],
+  items: {
+    data: []
+  },
   // item:{},
   error: "",
   bugQuantity: 0

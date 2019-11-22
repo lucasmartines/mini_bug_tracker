@@ -4,6 +4,8 @@ import {fetchBugs} from '../../store/actions/bugPostAction.js'
 import User from '../../providers/user'
 import {Form,Modal,Button} from 'react-bootstrap';
 
+import ReactPaginate from 'react-paginate';
+
 import {
     InputReact,
     TextAreaReact,
@@ -96,15 +98,19 @@ class AdminBugs extends Component {
         super(props)
         this.state = {
             openModal:false,
-            selectedBug:{ name:"",description:""}
+            selectedBug:{ name:"",description:""},
+            currentPage:1
         }
+
         if ( !User.isLoggeIn() ) {
             this.props.history.push("/") 
         }
+        
         this.updateBug = this.updateBug.bind(this);
+        this.handlePageClick = this.handlePageClick.bind(this)
     }
     componentDidMount(){
-        this.props.fetchBugs();
+        console.log('FETCH BUGS ',this.props.fetchBugs('/bug'))
     }
     showProject(project){
         if ( project ){
@@ -126,15 +132,9 @@ class AdminBugs extends Component {
     }
     updateBug({ id,name,bugSeverity,bugStatus,bugDescription}){
 
-        let newProject = {
-            id,
-            name,
-            description: bugDescription ,
-            severity:bugSeverity,
-            status: bugStatus,
-            
-        }
-        console.log("PENTA: ",newProject)
+        let newProject = {  id,name,description: bugDescription ,severity:bugSeverity,status: bugStatus,}
+       
+
         Axios.put('bug/'+newProject.id,newProject)
             .then( data => { 
                 alert( data.data.message ) 
@@ -147,58 +147,70 @@ class AdminBugs extends Component {
 
             })
     }
+    handlePageClick(data){
+        console.log('PAGINATE',data.selected+1)
+        let page = data.selected + 1 
+        this.props.fetchBugs('/bug?page='+page)
+    }
     render() {
-        console.log('BUGS '+this.props.bugs)
-        const postItems = this.props.bugs.map(bug=>(
+        console.log('BUGS ',this.props.bugs)
+        let postItems = <> Loading items </>
+        if( this.props.bugs.data !== undefined){
+             postItems = this.props.bugs.data.map(bug=>(
       
-            <div className="mb-3" key={bug.id}>
-                <h4>Name:  <b>{bug.name}</b></h4>
-                <h5> <b>description:</b> {bug.description} </h5>
-                
-                <table class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th> Status </th>
-                            <th> Severity </th>
-                            <th className="d-md-none d-lg-block"> UserName </th>
-                            <th> Project </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td> {bug.status} </td>
-                            <td> {showSeverity(bug.severity)}
-                            </td>
-                            <td> {bug.user_name || "anonymous"} </td>
-                            <td>  {this.showProject(bug.project)} </td>
-                        </tr>   
-                    </tbody>
-                </table>
-                <div className="row">
-                    <button className="btn btn-danger m-1 d-flex" onClick={()=>this.deleteProject(bug.id)}>
-                        <i class="material-icons"> delete </i>
-                        <span className="d-md-none d-lg-inline-flex"> Delete  </span>
-                    </button>
-                    <button className="btn btn-primary m-1 d-flex" onClick={
-                        ()=>{         
-                            this.setState({selectedBug:{ 
-                                id:bug.id,
-                                name:bug.name,
-                                description:bug.description,
-                                status:bug.status,
-                                user_name:bug.user_name  ,
-                                severity: bug.severity
-                            }})
-
-                            this.setState({openModal:true})
-                        }}>
-                        <i class="material-icons"> edit </i>
-                        <span className="d-md-none d-lg-inline-flex"> Update  </span>
-                    </button>
+                <div className="mb-3" key={bug.id}>
+                    <h4>Name:  <b>{bug.name}</b></h4>
+                    <h5> <b>description:</b> {bug.description} </h5>
+                    
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th> Status </th>
+                                <th> Severity </th>
+                                <th className="d-md-none d-lg-block"> UserName </th>
+                                <th> Project </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td> {bug.status} </td>
+                                <td> {showSeverity(bug.severity)}
+                                </td>
+                                <td> {bug.user_name || "anonymous"} </td>
+                                <td>  {this.showProject(bug.project)} </td>
+                            </tr>   
+                        </tbody>
+                    </table>
+                    <div className="row">
+                        <button className="btn btn-danger m-1 d-flex" onClick={()=>this.deleteProject(bug.id)}>
+                            <i class="material-icons"> delete </i>
+                            <span className="d-md-none d-lg-inline-flex"> Delete  </span>
+                        </button>
+                        <button className="btn btn-primary m-1 d-flex" onClick={
+                            ()=>{         
+                                this.setState({selectedBug:{ 
+                                    id:bug.id,
+                                    name:bug.name,
+                                    description:bug.description,
+                                    status:bug.status,
+                                    user_name:bug.user_name  ,
+                                    severity: bug.severity
+                                }})
+    
+                                this.setState({openModal:true})
+                            }}>
+                            <i class="material-icons"> edit </i>
+                            <span className="d-md-none d-lg-inline-flex"> Update  </span>
+                        </button>
+                        
+                    </div> 
+                    <hr/>
                 </div>
-                <hr/>
-            </div>  
-        ))
+            ) /** end loop */
+        )} /** end if loop */
+     
+        
+        
         return (
             <>
             <div className="container container-height mt-sm-3 mx-sm-auto container-height p-0 m-0 p-sm-1 m-sm-1">
@@ -215,7 +227,30 @@ class AdminBugs extends Component {
                         {postItems}
                     </div>
                 </div>
-            </div>
+                <div className="d-flex justify-content-center mt-3">
+
+                    <ReactPaginate
+                        pageCount={this.props.bugs.last_page}
+                        marginPagesDisplayed={2}
+                        pageRangeDisplayed={this.props.bugs.per_page}
+                    
+                        previousLabel={'previous'}
+                        nextLabel={'next'}
+                        breakLabel={'...'}
+                        breakClassName={'break-me'}
+                        onPageChange={this.handlePageClick}
+                        containerClassName={'pagination'}
+                        subContainerClassName={'pages pagination'}
+                        activeClassName={'active'}
+                        pageClassName={'page-item'}
+                        containerClassName={'pagination'}
+                        pageLinkClassName={'page-link'}
+                        nextClassName={'page-link'}
+                        previousClassName={'page-link'}
+                        />
+                    </div>
+            </div>{/* ./container cont height */}
+            
             <EditProject  
                           bug = {this.state.selectedBug}
                           show={this.state.openModal} 

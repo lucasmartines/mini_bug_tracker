@@ -1,7 +1,9 @@
 import {FETCH_BUGS,NEW_BUG,FAIL_FETCH_BUGS} from '../actions/types'
 
 const initialState = {
-    items:[],
+    items:{
+        data:[]
+    },
     // item:{},
     error:"",
     bugQuantity:0
