@@ -1,4 +1,4 @@
-import React, { Component , useState} from 'react'
+import React, { Component , useState,useEffect } from 'react'
 import {connect} from 'react-redux'
 import {fetchBugs} from '../../store/actions/bugPostAction.js'
 import User from '../../providers/user'
@@ -23,14 +23,9 @@ const ShowItemBug = (name,value) => {
 const showSeverity = (name) => {
     let intensityColor = "";
 
-    // intensityColor = name == "low" ?'badge-primary' : false;
-    // intensityColor = name == "moderate" ?' badge-warning' : false;
-    // intensityColor = name == "critical" ?' badge-danger' : false;
-
-    if(name == "low"){ intensityColor = "badge-primary"}
+    if(name == "low")     { intensityColor = "badge-primary"}
     if(name == "moderate"){ intensityColor = "badge-warning"}
     if(name == "critical"){ intensityColor = "badge-danger"}
-
 
     return<>
         <span className={"badge w-75 py-2 "+intensityColor}>
@@ -43,25 +38,52 @@ const showSeverity = (name) => {
 const EditProject = (props) => {
 
     let [name , setName ] = useState();
- 
+    let [bugSeverity , setBugSeverity ] = useState("low");
+    let [bugStatus , setBugStatus ] = useState("new bug");
+    let [bugDescription , setBugDescription ] = useState( );
+    
+    useEffect(() => {
+        setBugSeverity(   props.bug.severity )
+    },[props.bug.severity])
 
-    return <Modal className="mt-lg-2" show={props.show} onHide={()=>props.onHide()}>
+    useEffect(() => {
+        setBugStatus(   props.bug.status )
+    },[props.bug.status])
+
+    useEffect(() => {
+            setName(   props.bug.name )
+    },[props.bug.name])
+
+    useEffect(() => {
+        setBugDescription(  props.bug.description )
+    },[props.bug.description])
+
+
+    return <Modal  className="mt-lg-2" show={props.show} onHide={()=>props.onHide()}>
       <Modal.Header closeButton>
         <Modal.Title>Update  </Modal.Title>
       </Modal.Header>
         <Modal.Body>
             Bug Name
-            <InputReact />
-            <SelectInputLevel />
-            <SelectInputStatus />
+            
+            <InputReact default={props.bug.name} onChange={(e)=>{ setName(e.target.value)  }} />
+            {/* bug severity */}
+            <SelectInputLevel value={props.bug.severity} onChange={(e)=>{ setBugSeverity(e.target.value)  }}/>
+            {/* bug status */}
+            <SelectInputStatus value={props.bug.status} onChange={(e)=>{  setBugStatus(e.target.value) }}/>
             Bug Description
-            <TextAreaReact />
+            <TextAreaReact
+                default={props.bug.description} 
+                onChange={(e)=>{  setBugDescription(e.target.value) }}
+            />
         </Modal.Body>
       
       <Modal.Footer>
         <Button variant="secondary" onClick={props.onHide}>Close</Button>
         <Button variant="primary" 
-                onClick={()=>props.onSave( )}>
+                onClick={()=>{
+                    props.onSave( name,bugSeverity,bugStatus,bugDescription )
+                }}>
                 Save changes
         </Button>
       </Modal.Footer>
@@ -73,19 +95,21 @@ class AdminBugs extends Component {
     constructor(props){
         super(props)
         this.state = {
-            openModal:false
+            openModal:false,
+            selectedBug:{ name:"",description:""}
         }
         if ( !User.isLoggeIn() ) {
             this.props.history.push("/") 
         }
+        this.updateBug = this.updateBug.bind(this);
     }
     componentDidMount(){
         this.props.fetchBugs();
     }
     showProject(project){
-       if ( project ){
+        if ( project ){
             return <p>Project: {project.name || "Sem projeto"}</p>
-       }
+        }
         else{
             return <> </>
         }
@@ -98,9 +122,30 @@ class AdminBugs extends Component {
                     alert(data.data.message) 
                     this.props.fetchBugs();
                 });
-           
         }
-        
+    }
+    updateBug({ id,name,bugSeverity,bugStatus,bugDescription}){
+
+        let newProject = {
+            id,
+            name,
+            description: bugDescription ,
+            severity:bugSeverity,
+            status: bugStatus,
+            
+        }
+        console.log("PENTA: ",newProject)
+        Axios.put('bug/'+newProject.id,newProject)
+            .then( data => { 
+                alert( data.data.message ) 
+                this.props.fetchBugs();
+                this.setState({openModal:false})
+                
+            })
+            .catch( err => {
+                User.logoutWhenStatusCodeNotAuthorized(err.response.status)
+
+            })
     }
     render() {
         console.log('BUGS '+this.props.bugs)
@@ -134,7 +179,19 @@ class AdminBugs extends Component {
                         <i class="material-icons"> delete </i>
                         <span className="d-md-none d-lg-inline-flex"> Delete  </span>
                     </button>
-                    <button className="btn btn-primary m-1 d-flex" onClick={()=>this.setState({openModal:true})}>
+                    <button className="btn btn-primary m-1 d-flex" onClick={
+                        ()=>{         
+                            this.setState({selectedBug:{ 
+                                id:bug.id,
+                                name:bug.name,
+                                description:bug.description,
+                                status:bug.status,
+                                user_name:bug.user_name  ,
+                                severity: bug.severity
+                            }})
+
+                            this.setState({openModal:true})
+                        }}>
                         <i class="material-icons"> edit </i>
                         <span className="d-md-none d-lg-inline-flex"> Update  </span>
                     </button>
@@ -159,9 +216,16 @@ class AdminBugs extends Component {
                     </div>
                 </div>
             </div>
-            <EditProject show={this.state.openModal} 
+            <EditProject  
+                          bug = {this.state.selectedBug}
+                          show={this.state.openModal} 
                           onHide={()=>this.setState({openModal:!this.state.openModal})} 
-                          onSave={()=>alert("teste save")}/>
+                          onSave={(  name,bugSeverity,bugStatus,bugDescription)=>this.updateBug({
+                                id:this.state.selectedBug.id, name,bugSeverity,bugStatus,bugDescription
+                          })} 
+                          onEntered = {()=>console.log('teste')}
+            />
+
             </>
         )
     }

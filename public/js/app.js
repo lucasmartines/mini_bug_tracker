@@ -87174,8 +87174,16 @@ __webpack_require__.r(__webpack_exports__);
 
 function About() {
   return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "container pt-4 container-height"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "About"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, " Aplica\xE7\xE3o para estudo do react router, JWT token e redux. ")));
+    className: "container pt-4 container-height text-center"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", {
+    className: "my-3"
+  }, "About"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("hr", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, " Aplica\xE7\xE3o para estudo do react router, JWT token e redux. "), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+    src: "https://cdn.iconscout.com/icon/free/png-256/redux-283024.png",
+    className: "mt-5 col-12 col-sm-3"
+  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+    src: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/1280px-React-icon.svg.png",
+    className: "col-12 col-lg-3"
+  })));
 }
 
 /***/ }),
@@ -87206,9 +87214,9 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
 
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
@@ -87234,9 +87242,7 @@ var ShowItemBug = function ShowItemBug(name, value) {
 };
 
 var showSeverity = function showSeverity(name) {
-  var intensityColor = ""; // intensityColor = name == "low" ?'badge-primary' : false;
-  // intensityColor = name == "moderate" ?' badge-warning' : false;
-  // intensityColor = name == "critical" ?' badge-danger' : false;
+  var intensityColor = "";
 
   if (name == "low") {
     intensityColor = "badge-primary";
@@ -87263,6 +87269,33 @@ var EditProject = function EditProject(props) {
       name = _useState2[0],
       setName = _useState2[1];
 
+  var _useState3 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])("low"),
+      _useState4 = _slicedToArray(_useState3, 2),
+      bugSeverity = _useState4[0],
+      setBugSeverity = _useState4[1];
+
+  var _useState5 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])("new bug"),
+      _useState6 = _slicedToArray(_useState5, 2),
+      bugStatus = _useState6[0],
+      setBugStatus = _useState6[1];
+
+  var _useState7 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(),
+      _useState8 = _slicedToArray(_useState7, 2),
+      bugDescription = _useState8[0],
+      setBugDescription = _useState8[1];
+
+  Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
+    setBugSeverity(props.bug.severity);
+  }, [props.bug.severity]);
+  Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
+    setBugStatus(props.bug.status);
+  }, [props.bug.status]);
+  Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
+    setName(props.bug.name);
+  }, [props.bug.name]);
+  Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
+    setBugDescription(props.bug.description);
+  }, [props.bug.description]);
   return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__["Modal"], {
     className: "mt-lg-2",
     show: props.show,
@@ -87271,13 +87304,33 @@ var EditProject = function EditProject(props) {
     }
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__["Modal"].Header, {
     closeButton: true
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__["Modal"].Title, null, "Update  ")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__["Modal"].Body, null, "Bug Name", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_RegisterBug_js__WEBPACK_IMPORTED_MODULE_5__["InputReact"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_RegisterBug_js__WEBPACK_IMPORTED_MODULE_5__["SelectInputLevel"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_RegisterBug_js__WEBPACK_IMPORTED_MODULE_5__["SelectInputStatus"], null), "Bug Description", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_RegisterBug_js__WEBPACK_IMPORTED_MODULE_5__["TextAreaReact"], null)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__["Modal"].Footer, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__["Button"], {
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__["Modal"].Title, null, "Update  ")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__["Modal"].Body, null, "Bug Name", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_RegisterBug_js__WEBPACK_IMPORTED_MODULE_5__["InputReact"], {
+    "default": props.bug.name,
+    onChange: function onChange(e) {
+      setName(e.target.value);
+    }
+  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_RegisterBug_js__WEBPACK_IMPORTED_MODULE_5__["SelectInputLevel"], {
+    value: props.bug.severity,
+    onChange: function onChange(e) {
+      setBugSeverity(e.target.value);
+    }
+  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_RegisterBug_js__WEBPACK_IMPORTED_MODULE_5__["SelectInputStatus"], {
+    value: props.bug.status,
+    onChange: function onChange(e) {
+      setBugStatus(e.target.value);
+    }
+  }), "Bug Description", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_RegisterBug_js__WEBPACK_IMPORTED_MODULE_5__["TextAreaReact"], {
+    "default": props.bug.description,
+    onChange: function onChange(e) {
+      setBugDescription(e.target.value);
+    }
+  })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__["Modal"].Footer, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__["Button"], {
     variant: "secondary",
     onClick: props.onHide
   }, "Close"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__["Button"], {
     variant: "primary",
     onClick: function onClick() {
-      return props.onSave();
+      props.onSave(name, bugSeverity, bugStatus, bugDescription);
     }
   }, "Save changes")));
 };
@@ -87294,13 +87347,18 @@ function (_Component) {
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(AdminBugs).call(this, props));
     _this.state = {
-      openModal: false
+      openModal: false,
+      selectedBug: {
+        name: "",
+        description: ""
+      }
     };
 
     if (!_providers_user__WEBPACK_IMPORTED_MODULE_3__["default"].isLoggeIn()) {
       _this.props.history.push("/");
     }
 
+    _this.updateBug = _this.updateBug.bind(_assertThisInitialized(_this));
     return _this;
   }
 
@@ -87332,9 +87390,39 @@ function (_Component) {
       }
     }
   }, {
+    key: "updateBug",
+    value: function updateBug(_ref) {
+      var _this3 = this;
+
+      var id = _ref.id,
+          name = _ref.name,
+          bugSeverity = _ref.bugSeverity,
+          bugStatus = _ref.bugStatus,
+          bugDescription = _ref.bugDescription;
+      var newProject = {
+        id: id,
+        name: name,
+        description: bugDescription,
+        severity: bugSeverity,
+        status: bugStatus
+      };
+      console.log("PENTA: ", newProject);
+      Axios.put('bug/' + newProject.id, newProject).then(function (data) {
+        alert(data.data.message);
+
+        _this3.props.fetchBugs();
+
+        _this3.setState({
+          openModal: false
+        });
+      })["catch"](function (err) {
+        _providers_user__WEBPACK_IMPORTED_MODULE_3__["default"].logoutWhenStatusCodeNotAuthorized(err.response.status);
+      });
+    }
+  }, {
     key: "render",
     value: function render() {
-      var _this3 = this;
+      var _this4 = this;
 
       console.log('BUGS ' + this.props.bugs);
       var postItems = this.props.bugs.map(function (bug) {
@@ -87345,12 +87433,12 @@ function (_Component) {
           "class": "table table-striped"
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("thead", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, " Status "), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, " Severity "), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", {
           className: "d-md-none d-lg-block"
-        }, " UserName "), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, " Project "))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tbody", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, " ", bug.status, " "), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, " ", showSeverity(bug.severity)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, " ", bug.user_name || "anonymous", " "), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, "  ", _this3.showProject(bug.project), " ")))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        }, " UserName "), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, " Project "))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tbody", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, " ", bug.status, " "), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, " ", showSeverity(bug.severity)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, " ", bug.user_name || "anonymous", " "), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, "  ", _this4.showProject(bug.project), " ")))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           className: "row"
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
           className: "btn btn-danger m-1 d-flex",
           onClick: function onClick() {
-            return _this3.deleteProject(bug.id);
+            return _this4.deleteProject(bug.id);
           }
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
           "class": "material-icons"
@@ -87359,7 +87447,18 @@ function (_Component) {
         }, " Delete  ")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
           className: "btn btn-primary m-1 d-flex",
           onClick: function onClick() {
-            return _this3.setState({
+            _this4.setState({
+              selectedBug: {
+                id: bug.id,
+                name: bug.name,
+                description: bug.description,
+                status: bug.status,
+                user_name: bug.user_name,
+                severity: bug.severity
+              }
+            });
+
+            _this4.setState({
               openModal: true
             });
           }
@@ -87380,14 +87479,24 @@ function (_Component) {
       }, "bug_report"), "Admin Bugs Panel")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "card-body"
       }, postItems))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(EditProject, {
+        bug: this.state.selectedBug,
         show: this.state.openModal,
         onHide: function onHide() {
-          return _this3.setState({
-            openModal: !_this3.state.openModal
+          return _this4.setState({
+            openModal: !_this4.state.openModal
           });
         },
-        onSave: function onSave() {
-          return alert("teste save");
+        onSave: function onSave(name, bugSeverity, bugStatus, bugDescription) {
+          return _this4.updateBug({
+            id: _this4.state.selectedBug.id,
+            name: name,
+            bugSeverity: bugSeverity,
+            bugStatus: bugStatus,
+            bugDescription: bugDescription
+          });
+        },
+        onEntered: function onEntered() {
+          return console.log('teste');
         }
       }));
     }
@@ -87473,7 +87582,8 @@ function InputReact(props) {
     id: "bug1",
     "aria-describedby": "bugHelp",
     placeholder: props.placeholder,
-    onChange: props.onChange
+    onChange: props.onChange,
+    defaultValue: props["default"]
   })));
 }
 /**
@@ -87482,6 +87592,12 @@ function InputReact(props) {
 
 
 function TextAreaReact(props) {
+  var description = "";
+
+  if (props["default"]) {
+    description = props["default"] || ""; // alert("X")
+  }
+
   return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "form-group mb-3"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
@@ -87490,7 +87606,8 @@ function TextAreaReact(props) {
     className: "form-control col-12 col-sm-12 ",
     id: props["for"],
     rows: props.rows || 5,
-    onChange: props.onChange
+    onChange: props.onChange,
+    defaultValue: description
   })));
 }
 /**
@@ -87508,7 +87625,7 @@ function SelectInputLevel(props) {
     className: "form-control ml-2 col-12 col-sm-3 col-lg-2 ",
     id: "level",
     onChange: props.onChange,
-    value: props.value
+    defaultValue: props.value
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
     value: "low"
   }, "Low"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
@@ -87532,7 +87649,7 @@ function SelectInputStatus(props) {
     className: "form-control ml-2 col-12 col-sm-3 col-lg-2 ",
     id: "level",
     onChange: props.onChange,
-    value: props.value
+    defaultValue: props.value
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
     value: "new bug"
   }, "New Bug"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {

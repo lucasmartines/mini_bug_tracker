@@ -22,7 +22,8 @@ function InputReact  (props) {
                 className="form-control col-12 col-sm-12 " id="bug1"
                 aria-describedby="bugHelp"
                 placeholder={props.placeholder}
-                onChange={ props.onChange }
+                onChange={ props.onChange } 
+                defaultValue ={props.default}
                />
         </div>
     </>
@@ -31,7 +32,14 @@ function InputReact  (props) {
 /**
  * É o input do text area, não está completo ainda
  */
-function TextAreaReact(props){
+function TextAreaReact(props)
+{
+
+    let description = "" ;
+    if( props.default ){
+        description = props.default || "" ;
+        // alert("X")
+    }
     return<>
          <div className="form-group mb-3">
             <label htmlFor={props.for}>{props.inputName}</label>
@@ -39,7 +47,9 @@ function TextAreaReact(props){
                 className="form-control col-12 col-sm-12 " 
                 id={props.for} 
                 rows={props.rows || 5}
-                onChange={props.onChange}></textarea>
+                onChange={props.onChange}
+                defaultValue={description}
+                ></textarea>
         </div>
     </>
 }
@@ -56,7 +66,7 @@ function SelectInputLevel(props){
                 className="form-control ml-2 col-12 col-sm-3 col-lg-2 " 
                 id="level"
                 onChange={props.onChange}
-                value={props.value}>
+                defaultValue={props.value}>
                 <option value="low">Low</option>
                 <option value="moderate">Moderate</option>
                 <option value="critical">Critical</option>
@@ -76,7 +86,7 @@ function SelectInputStatus(props){
                 className="form-control ml-2 col-12 col-sm-3 col-lg-2 " 
                 id="level"
                 onChange={props.onChange}
-                value={props.value}>
+                defaultValue={props.value}>
                 <option value="new bug">New Bug</option>
                 <option value="solving">Solving</option>
                 <option value="solved">Solved Bug</option>
@@ -204,6 +214,7 @@ class Bugs extends Component{
                         <InputReact 
                             inputName="Bug Name"
                             placeholder="Bug name"
+                            
                             onChange={(e)=>{ this.setState({name:e.target.value}) } }
                         />
                         <SelectInputLevel 

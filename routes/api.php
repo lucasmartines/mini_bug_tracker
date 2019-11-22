@@ -46,11 +46,14 @@ Route::group([
     Route::post('me', 'AuthController@me');
 
     Route::get('/user','AuthController@index');
+
+
     /*Bug controller*/
     Route::get('bug',"BugController@index");
     Route::get('bug/count',"BugController@count")    ;      
     Route::get('bug/{id}','BugController@bug');
     Route::post('bug',"BugController@store");
+    Route::put('bug/{id}',"BugController@update");
     Route::delete('bug/{id}','BugController@delete');
 
 

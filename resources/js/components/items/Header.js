@@ -105,10 +105,10 @@ function LoginAndRegisterLink(props)
                         
                         <ListLink name="Report Bug" link="/bugtracker"/>
                         
-                            {User.isLoggeIn() && <ListLink name="Admin User" link="/user"/>}
-                            {User.isLoggeIn() && <ListLink name="Admin Project" link="/projects"/> }
-                            {User.isLoggeIn() && <ListLink name="Admin Bugs" link="/bugspanel" />}
-                        
+                        {User.isLoggeIn() && <ListLink name="Admin User" link="/user"/>}
+                        {User.isLoggeIn() && <ListLink name="Admin Project" link="/projects"/> }
+                        {User.isLoggeIn() && <ListLink name="Admin Bugs" link="/bugspanel" />}
+                    
                         <LoginAndRegisterLink user={this.props.user}/>
 
                     </ul>
