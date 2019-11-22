@@ -2,6 +2,9 @@ import React,{Component} from 'react';
 import User from '../../providers/user.js'
 import {connect} from 'react-redux';
 import {loadProjects} from '../../store/actions/loadProjectsAction.js'
+import SimpleReactValidator from 'simple-react-validator';
+
+
 /** 
  * É o input normal do html formatado pensando em react
  * 
@@ -155,6 +158,8 @@ class Bugs extends Component{
             project:0
             
         }
+        this.validator = new SimpleReactValidator();
+
     }
     componentDidMount (){
         
@@ -219,13 +224,16 @@ class Bugs extends Component{
                         />
                         <SelectInputLevel 
                             onChange={ (e)=>{this.setState({severity: e.target.value})} } />
+ 
                         <TextAreaReact
                             inputName="Bug's Description"
                             htmlFor="bug input"
                             onChange={(e)=>{ this.setState({description:e.target.value}) } }/> 
+  
                         <ShowProjectOptions 
                             options={this.props.projects}
                             onChange={(e)=>  this.setState({project: e.target.value} ) } />
+
                         <ButtonInput
                             inputName="Send Bug"
                             onCLick={(e)=>{this.submitForm(e)}}

@@ -1,6 +1,7 @@
 import React,{Component} from 'react';
 import { withRouter } from 'react-router-dom';
 import User from '../../../providers/user';
+import SimpleReactValidator from 'simple-react-validator';
 
 
 
@@ -14,6 +15,8 @@ export default class Register extends Component{
             password:"",
             confirmPassword:""
         }
+        this.validator = new SimpleReactValidator();
+
     }
     componentDidMount(){
         if(User.isLoggeIn()){
@@ -24,23 +27,34 @@ export default class Register extends Component{
     }
     registerUser(e)
     {
-
-        let newUser = {
-            name:this.state.name,
-            email:this.state.email,
-            password:this.state.password,
-            confirmPassword:this.state.confirmPassword,
+        if( this.state.password !== this.state.confirmPassword){
+            this.validator.showMessageFor('confirmPassword');
         }
-        Axios.post("/register",newUser)
-            .then((response)=>{
-                localStorage.setItem("token",response.data.access_token);
-                window.location="/"
-               // props.history.push('/')
-                console.log(response)
-                console.log(localStorage.getItem('token'))
-            })
-            .catch((e)=>console.log(e))
+        else{
+            this.validator.hideMessageFor('confirmPassword')
+        }
 
+        if (this.validator.allValid()) {
+            let newUser = {
+                name:this.state.name,
+                email:this.state.email,
+                password:this.state.password,
+                confirmPassword:this.state.confirmPassword,
+            }
+            Axios.post("/register",newUser)
+                .then((response)=>{
+                    localStorage.setItem("token",response.data.access_token);
+                    window.location="/"
+                // props.history.push('/')
+                    console.log(response)
+                    console.log(localStorage.getItem('token'))
+                })
+                .catch((e)=>console.log(e))
+        }
+        else{
+            this.validator.showMessages();
+            this.forceUpdate();
+        }
             
     }
     render(){
@@ -54,6 +68,8 @@ export default class Register extends Component{
                                 className="form-control"  
                                 placeholder="Name"
                                 onChange={(e)=>this.setState({name:e.target.value})}/>
+                        <p className='text-danger'>{this.validator.message('name', this.state.name, 'required|min:4') }</p>
+
                     </div>
                     <div className="form-group">
                         <label htmlFor="exampleInputEmail1">Email</label>
@@ -61,7 +77,7 @@ export default class Register extends Component{
                                 className="form-control"  
                                 placeholder="email@email.com"
                                 onChange={(e)=>this.setState({email:e.target.value})}/>
-                                
+                          <p className='text-danger'>{this.validator.message('email', this.state.email, 'required|email') } </p>
                     </div>
                     <div className="form-group">
                         <label htmlFor="exampleInputEmail1">Password</label>
@@ -69,7 +85,7 @@ export default class Register extends Component{
                                 className="form-control"  
                                 placeholder="Password"
                                 onChange={(e)=>this.setState({password:e.target.value})}/>
-                                
+                       <p className='text-danger'> {this.validator.message('password', this.state.password, 'required|min:6') }</p>
                     </div>
                     <div className="form-group">
                         <label htmlFor="exampleInputEmail1">Confirm Password</label>
@@ -78,7 +94,9 @@ export default class Register extends Component{
                                 placeholder="Password"
                                 onChange={(e)=>this.setState({confirmPassword:e.target.value})}
                                 />
-                       
+
+                    <p className='text-danger'>{this.validator.message('confirmPassword', this.state.confirmPassword, 'required|min:8') } </p>
+
                     </div>
                     <button className="btn btn-success"
                         onClick={(e)=>this.registerUser(e)}> Register </button>
