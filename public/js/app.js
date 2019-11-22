@@ -87954,7 +87954,7 @@ function (_Component) {
   _createClass(AdminBugs, [{
     key: "componentDidMount",
     value: function componentDidMount() {
-      console.log('FETCH BUGS ', this.props.fetchBugs('/bug'));
+      this.props.fetchBugs('/bug?page=1');
     }
   }, {
     key: "showProject",
@@ -88086,9 +88086,9 @@ function (_Component) {
       }, postItems)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "d-flex justify-content-center mt-3"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_paginate__WEBPACK_IMPORTED_MODULE_5___default.a, (_React$createElement = {
-        pageCount: this.props.bugs.last_page,
+        pageCount: this.props.bugs.last_page || 1,
         marginPagesDisplayed: 2,
-        pageRangeDisplayed: this.props.bugs.per_page,
+        pageRangeDisplayed: this.props.bugs.per_page || 1,
         previousLabel: 'previous',
         nextLabel: 'next',
         breakLabel: '...',
@@ -89568,7 +89568,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _providers_user_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../providers/user.js */ "./resources/js/providers/user.js");
 
 
-var fetchBugs = function fetchBugs(url) {
+var fetchBugs = function fetchBugs() {
+  var url = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '/bug?page=1';
   return function (dispatch) {
     //console.log("FETCHING")
     var bugData = {};

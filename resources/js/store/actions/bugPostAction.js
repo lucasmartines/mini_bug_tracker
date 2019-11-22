@@ -1,7 +1,7 @@
 import {FETCH_BUGS,NEW_BUG,FAIL_FETCH_BUGS} from './types'
 import User from '../../providers/user.js';
 
-export const  fetchBugs = (url) => dispatch =>  {
+export const  fetchBugs = (url='/bug?page=1') => dispatch =>  {
     //console.log("FETCHING")
     let bugData = {}
      Axios.get(url)

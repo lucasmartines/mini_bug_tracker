@@ -110,7 +110,9 @@ class AdminBugs extends Component {
         this.handlePageClick = this.handlePageClick.bind(this)
     }
     componentDidMount(){
-        console.log('FETCH BUGS ',this.props.fetchBugs('/bug'))
+        this.props.fetchBugs('/bug?page=1')
+ 
+        
     }
     showProject(project){
         if ( project ){
@@ -230,9 +232,9 @@ class AdminBugs extends Component {
                 <div className="d-flex justify-content-center mt-3">
 
                     <ReactPaginate
-                        pageCount={this.props.bugs.last_page}
+                        pageCount={this.props.bugs.last_page||1}
                         marginPagesDisplayed={2}
-                        pageRangeDisplayed={this.props.bugs.per_page}
+                        pageRangeDisplayed={this.props.bugs.per_page||1}
                     
                         previousLabel={'previous'}
                         nextLabel={'next'}
