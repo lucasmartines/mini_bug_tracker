@@ -15,9 +15,15 @@ class BugController extends Controller
     {
         $this->middleware('auth:api', ['except' => ['store','count']]);
     }
-    public function index()
+    public function index(Request $req)
     {
-    	$bugs = Bug::paginate(5);
+        
+        $bugs = Bug::where(function($q)use($req){
+            if($req->name){// se ouver um nome então filtre pelo nome
+                $q->where('name','like', '%'. $req->name . '%');
+            }
+        })->orderBy('created_at','DESC')->paginate(5);
+        
 
     	return response()->json($bugs);
     }

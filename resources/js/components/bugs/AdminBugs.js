@@ -2,7 +2,9 @@ import React, { Component , useState,useEffect } from 'react'
 import {connect} from 'react-redux'
 import {fetchBugs} from '../../store/actions/bugPostAction.js'
 import User from '../../providers/user'
-import {Form,Modal,Button} from 'react-bootstrap';
+import {Form,Modal,Button,Card} from 'react-bootstrap';
+
+import Buscador from './components/Buscador.js';
 
 import ReactPaginate from 'react-paginate';
 
@@ -99,7 +101,8 @@ class AdminBugs extends Component {
         this.state = {
             openModal:false,
             selectedBug:{ name:"",description:""},
-            currentPage:1
+            currentPage:1,
+            busca:""
         }
 
         if ( !User.isLoggeIn() ) {
@@ -149,6 +152,15 @@ class AdminBugs extends Component {
 
             })
     }
+    search(entry)
+    {
+        if(entry){
+            this.props.fetchBugs('/bug?page='+ this.state.currentPage+"&name="+entry)
+        }
+        else{
+            this.props.fetchBugs('/bug?page='+ this.state.currentPage)
+        }
+    }
     handlePageClick(data){
         console.log('PAGINATE',data.selected+1)
         let page = data.selected + 1 
@@ -163,7 +175,7 @@ class AdminBugs extends Component {
                 <div className="mb-3" key={bug.id}>
                     <h4>Name:  <b>{bug.name}</b></h4>
                     <h5> <b>description:</b> {bug.description} </h5>
-                    
+                    <p> Criação {bug.created_at} </p>
                     <table class="table table-striped">
                         <thead>
                             <tr>
@@ -216,19 +228,14 @@ class AdminBugs extends Component {
         return (
             <>
             <div className="container container-height mt-sm-3 mx-sm-auto container-height p-0 m-0 p-sm-1 m-sm-1">
-                <div className="card">
-                    <div className="card-header">
-                        <h2> 
-                            <i className="material-icons">
-                                bug_report
-                            </i>
-                            Admin Bugs Panel
-                        </h2>
-                    </div>
-                    <div className="card-body">
+                
+                <Buscador onClick={ e => {   this.search(e) ;  } }     
+                          />
+                <Card>
+                    <Card.Body>
                         {postItems}
-                    </div>
-                </div>
+                    </Card.Body>
+                </Card>
                 <div className="d-flex justify-content-center mt-3">
 
                     <ReactPaginate
@@ -249,19 +256,19 @@ class AdminBugs extends Component {
                         pageLinkClassName={'page-link'}
                         nextClassName={'page-link'}
                         previousClassName={'page-link'}
-                        />
-                    </div>
+                    />
+                </div>
             </div>{/* ./container cont height */}
             
-            <EditProject  
-                          bug = {this.state.selectedBug}
-                          show={this.state.openModal} 
-                          onHide={()=>this.setState({openModal:!this.state.openModal})} 
-                          onSave={(  name,bugSeverity,bugStatus,bugDescription)=>this.updateBug({
-                                id:this.state.selectedBug.id, name,bugSeverity,bugStatus,bugDescription
-                          })} 
-                          onEntered = {()=>console.log('teste')}
-            />
+                <EditProject  
+                    bug = {this.state.selectedBug}
+                    show={this.state.openModal} 
+                    onHide={()=>this.setState({openModal:!this.state.openModal})} 
+                    onSave={(  name,bugSeverity,bugStatus,bugDescription)=>this.updateBug({
+                        id:this.state.selectedBug.id, name,bugSeverity,bugStatus,bugDescription
+                    })} 
+                    onEntered = {()=>console.log('teste')}
+                />
 
             </>
         )

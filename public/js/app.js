@@ -87800,9 +87800,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _store_actions_bugPostAction_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../store/actions/bugPostAction.js */ "./resources/js/store/actions/bugPostAction.js");
 /* harmony import */ var _providers_user__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../providers/user */ "./resources/js/providers/user.js");
 /* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/index.js");
-/* harmony import */ var react_paginate__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react-paginate */ "./node_modules/react-paginate/dist/index.js");
-/* harmony import */ var react_paginate__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(react_paginate__WEBPACK_IMPORTED_MODULE_5__);
-/* harmony import */ var _RegisterBug_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./RegisterBug.js */ "./resources/js/components/bugs/RegisterBug.js");
+/* harmony import */ var _components_Buscador_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/Buscador.js */ "./resources/js/components/bugs/components/Buscador.js");
+/* harmony import */ var react_paginate__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react-paginate */ "./node_modules/react-paginate/dist/index.js");
+/* harmony import */ var react_paginate__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(react_paginate__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var _RegisterBug_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./RegisterBug.js */ "./resources/js/components/bugs/RegisterBug.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
@@ -87830,6 +87831,7 @@ function _nonIterableRest() { throw new TypeError("Invalid attempt to destructur
 function _iterableToArrayLimit(arr, i) { if (!(Symbol.iterator in Object(arr) || Object.prototype.toString.call(arr) === "[object Arguments]")) { return; } var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
 
 
 
@@ -87906,22 +87908,22 @@ var EditProject = function EditProject(props) {
     }
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__["Modal"].Header, {
     closeButton: true
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__["Modal"].Title, null, "Update  ")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__["Modal"].Body, null, "Bug Name", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_RegisterBug_js__WEBPACK_IMPORTED_MODULE_6__["InputReact"], {
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__["Modal"].Title, null, "Update  ")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__["Modal"].Body, null, "Bug Name", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_RegisterBug_js__WEBPACK_IMPORTED_MODULE_7__["InputReact"], {
     "default": props.bug.name,
     onChange: function onChange(e) {
       setName(e.target.value);
     }
-  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_RegisterBug_js__WEBPACK_IMPORTED_MODULE_6__["SelectInputLevel"], {
+  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_RegisterBug_js__WEBPACK_IMPORTED_MODULE_7__["SelectInputLevel"], {
     value: props.bug.severity,
     onChange: function onChange(e) {
       setBugSeverity(e.target.value);
     }
-  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_RegisterBug_js__WEBPACK_IMPORTED_MODULE_6__["SelectInputStatus"], {
+  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_RegisterBug_js__WEBPACK_IMPORTED_MODULE_7__["SelectInputStatus"], {
     value: props.bug.status,
     onChange: function onChange(e) {
       setBugStatus(e.target.value);
     }
-  }), "Bug Description", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_RegisterBug_js__WEBPACK_IMPORTED_MODULE_6__["TextAreaReact"], {
+  }), "Bug Description", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_RegisterBug_js__WEBPACK_IMPORTED_MODULE_7__["TextAreaReact"], {
     "default": props.bug.description,
     onChange: function onChange(e) {
       setBugDescription(e.target.value);
@@ -87954,7 +87956,8 @@ function (_Component) {
         name: "",
         description: ""
       },
-      currentPage: 1
+      currentPage: 1,
+      busca: ""
     };
 
     if (!_providers_user__WEBPACK_IMPORTED_MODULE_3__["default"].isLoggeIn()) {
@@ -88023,6 +88026,15 @@ function (_Component) {
       });
     }
   }, {
+    key: "search",
+    value: function search(entry) {
+      if (entry) {
+        this.props.fetchBugs('/bug?page=' + this.state.currentPage + "&name=" + entry);
+      } else {
+        this.props.fetchBugs('/bug?page=' + this.state.currentPage);
+      }
+    }
+  }, {
     key: "handlePageClick",
     value: function handlePageClick(data) {
       console.log('PAGINATE', data.selected + 1);
@@ -88043,7 +88055,7 @@ function (_Component) {
           return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
             className: "mb-3",
             key: bug.id
-          }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", null, "Name:  ", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("b", null, bug.name)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h5", null, " ", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("b", null, "description:"), " ", bug.description, " "), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("table", {
+          }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", null, "Name:  ", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("b", null, bug.name)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h5", null, " ", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("b", null, "description:"), " ", bug.description, " "), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, " Cria\xE7\xE3o ", bug.created_at, " "), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("table", {
             "class": "table table-striped"
           }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("thead", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, " Status "), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, " Severity "), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", {
             className: "d-md-none d-lg-block"
@@ -88090,17 +88102,13 @@ function (_Component) {
 
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "container container-height mt-sm-3 mx-sm-auto container-height p-0 m-0 p-sm-1 m-sm-1"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "card"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "card-header"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
-        className: "material-icons"
-      }, "bug_report"), "Admin Bugs Panel")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "card-body"
-      }, postItems)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_Buscador_js__WEBPACK_IMPORTED_MODULE_5__["default"], {
+        onClick: function onClick(e) {
+          _this4.search(e);
+        }
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__["Card"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__["Card"].Body, null, postItems)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "d-flex justify-content-center mt-3"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_paginate__WEBPACK_IMPORTED_MODULE_5___default.a, (_React$createElement = {
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_paginate__WEBPACK_IMPORTED_MODULE_6___default.a, (_React$createElement = {
         pageCount: this.props.bugs.last_page || 1,
         marginPagesDisplayed: 2,
         pageRangeDisplayed: this.props.bugs.per_page || 1,
@@ -88468,6 +88476,66 @@ var mapStateToProps = function mapStateToProps(state) {
 
 /* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_2__["connect"])(mapStateToProps)(Bugs));
 
+
+/***/ }),
+
+/***/ "./resources/js/components/bugs/components/Buscador.js":
+/*!*************************************************************!*\
+  !*** ./resources/js/components/bugs/components/Buscador.js ***!
+  \*************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Buscador; });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/index.js");
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance"); }
+
+function _iterableToArrayLimit(arr, i) { if (!(Symbol.iterator in Object(arr) || Object.prototype.toString.call(arr) === "[object Arguments]")) { return; } var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+
+
+/**
+ * se o usuario apertar enter então dá o enter
+ */
+
+function onEnter(e, callback) {
+  if (e.key == 'Enter') {
+    callback(e);
+  }
+}
+
+function Buscador(props) {
+  var _useState = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(''),
+      _useState2 = _slicedToArray(_useState, 2),
+      busca = _useState2[0],
+      setBusca = _useState2[1];
+
+  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_1__["Card"], {
+    className: "my-2"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_1__["Card"].Header, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+    className: "material-icons"
+  }, "  bug_report  "), "Admin Bugs Panel")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_1__["Card"].Body, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_1__["InputGroup"], {
+    className: "mb-3"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_1__["FormControl"], {
+    placeholder: "Buscar",
+    onChange: function onChange(e) {
+      setBusca(e.target.value);
+    }
+  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_1__["InputGroup"].Append, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_1__["Button"], {
+    variant: "outline-secondary",
+    onClick: function onClick(e) {
+      return props.onClick(busca);
+    }
+  }, "Buscar"))))));
+}
 
 /***/ }),
 
