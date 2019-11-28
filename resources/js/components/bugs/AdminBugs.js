@@ -2,7 +2,7 @@ import React, { Component , useState,useEffect } from 'react'
 import {connect} from 'react-redux'
 import {fetchBugs} from '../../store/actions/bugPostAction.js'
 import User from '../../providers/user'
-import {Form,Modal,Button,Card} from 'react-bootstrap';
+import {Form,Modal,Button,Card,Container,Row} from 'react-bootstrap';
 
 import Buscador from './components/Buscador.js';
 
@@ -195,29 +195,32 @@ class AdminBugs extends Component {
                             </tr>   
                         </tbody>
                     </table>
-                    <div className="row">
-                        <button className="btn btn-danger m-1 d-flex" onClick={()=>this.deleteProject(bug.id)}>
+                    <Row>
+                        <Button 
+                            className="btn btn-danger m-1 d-flex" 
+                            onClick={()=>this.deleteProject(bug.id)}>
                             <i class="material-icons"> delete </i>
                             <span className="d-md-none d-lg-inline-flex"> Delete  </span>
-                        </button>
-                        <button className="btn btn-primary m-1 d-flex" onClick={
-                            ()=>{         
-                                this.setState({selectedBug:{ 
-                                    id:bug.id,
-                                    name:bug.name,
-                                    description:bug.description,
-                                    status:bug.status,
-                                    user_name:bug.user_name  ,
-                                    severity: bug.severity
-                                }})
-    
-                                this.setState({openModal:true})
+                        </Button>
+                        <Button 
+                            className="btn btn-primary m-1 d-flex" 
+                            onClick={
+                                ()=>{         
+                                    this.setState({selectedBug:{ 
+                                        id:bug.id,
+                                        name:bug.name,
+                                        description:bug.description,
+                                        status:bug.status,
+                                        user_name:bug.user_name  ,
+                                        severity: bug.severity
+                                    }})
+        
+                                    this.setState({openModal:true})
                             }}>
                             <i class="material-icons"> edit </i>
                             <span className="d-md-none d-lg-inline-flex"> Update  </span>
-                        </button>
-                        
-                    </div> 
+                        </Button>  
+                    </Row> 
                     <hr/>
                 </div>
             ) /** end loop */
@@ -227,7 +230,7 @@ class AdminBugs extends Component {
         
         return (
             <>
-            <div className="container container-height mt-sm-3 mx-sm-auto container-height p-0 m-0 p-sm-1 m-sm-1">
+            <Container className="container-height mt-sm-3 mx-sm-auto container-height p-0 m-0 p-sm-1 m-sm-1">
                 
                 <Buscador onClick={ e => {   this.search(e) ;  } }     
                           />
@@ -236,8 +239,7 @@ class AdminBugs extends Component {
                         {postItems}
                     </Card.Body>
                 </Card>
-                <div className="d-flex justify-content-center mt-3">
-
+                <Container className="d-flex justify-content-center mt-3">
                     <ReactPaginate
                         pageCount={this.props.bugs.last_page||1}
                         marginPagesDisplayed={2}
@@ -257,18 +259,18 @@ class AdminBugs extends Component {
                         nextClassName={'page-link'}
                         previousClassName={'page-link'}
                     />
-                </div>
-            </div>{/* ./container cont height */}
+                </Container>
+            </Container>{/* ./container cont height */}
             
-                <EditProject  
-                    bug = {this.state.selectedBug}
-                    show={this.state.openModal} 
-                    onHide={()=>this.setState({openModal:!this.state.openModal})} 
-                    onSave={(  name,bugSeverity,bugStatus,bugDescription)=>this.updateBug({
-                        id:this.state.selectedBug.id, name,bugSeverity,bugStatus,bugDescription
-                    })} 
-                    onEntered = {()=>console.log('teste')}
-                />
+            <EditProject  
+                bug = {this.state.selectedBug}
+                show={this.state.openModal} 
+                onHide={()=>this.setState({openModal:!this.state.openModal})} 
+                onSave={(  name,bugSeverity,bugStatus,bugDescription)=>this.updateBug({
+                    id:this.state.selectedBug.id, name,bugSeverity,bugStatus,bugDescription
+                })} 
+                onEntered = {()=>console.log('teste')}
+            />
 
             </>
         )

@@ -88059,9 +88059,7 @@ function (_Component) {
             "class": "table table-striped"
           }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("thead", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, " Status "), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, " Severity "), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", {
             className: "d-md-none d-lg-block"
-          }, " UserName "), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, " Project "))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tbody", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, " ", bug.status, " "), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, " ", showSeverity(bug.severity)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, " ", bug.user_name || "anonymous", " "), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, "  ", _this4.showProject(bug.project), " ")))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-            className: "row"
-          }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+          }, " UserName "), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, " Project "))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tbody", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, " ", bug.status, " "), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, " ", showSeverity(bug.severity)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, " ", bug.user_name || "anonymous", " "), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, "  ", _this4.showProject(bug.project), " ")))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__["Row"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__["Button"], {
             className: "btn btn-danger m-1 d-flex",
             onClick: function onClick() {
               return _this4.deleteProject(bug.id);
@@ -88070,7 +88068,7 @@ function (_Component) {
             "class": "material-icons"
           }, " delete "), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
             className: "d-md-none d-lg-inline-flex"
-          }, " Delete  ")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+          }, " Delete  ")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__["Button"], {
             className: "btn btn-primary m-1 d-flex",
             onClick: function onClick() {
               _this4.setState({
@@ -88100,13 +88098,13 @@ function (_Component) {
       /** end if loop */
 
 
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "container container-height mt-sm-3 mx-sm-auto container-height p-0 m-0 p-sm-1 m-sm-1"
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__["Container"], {
+        className: "container-height mt-sm-3 mx-sm-auto container-height p-0 m-0 p-sm-1 m-sm-1"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_Buscador_js__WEBPACK_IMPORTED_MODULE_5__["default"], {
         onClick: function onClick(e) {
           _this4.search(e);
         }
-      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__["Card"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__["Card"].Body, null, postItems)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__["Card"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__["Card"].Body, null, postItems)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__["Container"], {
         className: "d-flex justify-content-center mt-3"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_paginate__WEBPACK_IMPORTED_MODULE_6___default.a, (_React$createElement = {
         pageCount: this.props.bugs.last_page || 1,
