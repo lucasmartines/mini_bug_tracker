@@ -61,7 +61,7 @@ export default class Register extends Component{
         return <>
             <div className="mx-1">
                 <div className="card col-sm-8 col-lg-4 col-12 mx-auto  my-5 py-5 px-4 ">
-                    <h2> Register </h2>
+                    <h2><i class="material-icons">security </i>  Register </h2>
                     <div className="form-group">
                         <label htmlFor="exampleInputEmail1">Name</label>
                         <input type="text" 
